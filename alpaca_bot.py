@@ -18,7 +18,7 @@ Run:
   python3 alpaca_bot.py --loop    # check every 15 min, autonomous (what the installer runs)
 Logs are written to bot.log next to this script.
 """
-import os, sys, time, datetime, logging, logging.handlers
+import os, sys, time, json, datetime, logging, logging.handlers
 
 # ----------------- CONFIG -----------------
 PAPER         = True        # <<< fake money. Do NOT change until you've watched it work for weeks.
@@ -76,6 +76,18 @@ def daily_closes(symbols):
     bars = data.get_stock_bars(req).data
     return {s: [b.close for b in bars.get(s, [])] for s in symbols}
 
+def write_status(tag=""):
+    """Snapshot account+positions to status.json so it can be auto-pushed to GitHub for review."""
+    try:
+        a = trade.get_account(); ps = trade.get_all_positions()
+        snap = {"time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "tag": tag, "paper": PAPER,
+                "equity": float(a.equity), "cash": float(a.cash),
+                "positions": [{"sym": p.symbol, "qty": float(p.qty), "value": float(p.market_value),
+                               "unrealized_pl": float(p.unrealized_pl)} for p in ps]}
+        json.dump(snap, open(os.path.join(HERE, "status.json"), "w"), indent=1)
+    except Exception as e:
+        log.error(f"status write failed: {e}")
+
 def run_once():
     clock = trade.get_clock()
     if not clock.is_open:
@@ -110,6 +122,7 @@ def run_once():
             log.info(f"  BUY  {sym} (RSI2 {r2:.1f} < {RSI_BUY}, above 200dMA) ~${per:,.0f}")
     else:
         log.info("  no new buys (slots full or nothing oversold-in-uptrend)")
+    write_status("after-check")
 
 def run_dry():
     acct = trade.get_account()
@@ -130,6 +143,7 @@ def run_dry():
     buys.sort()
     log.info("  -> " + (f"would BUY: {', '.join(s for _,s in buys[:MAX_POSITIONS])}" if buys
                         else "nothing oversold-in-uptrend; would hold cash"))
+    write_status("dry")
 
 if __name__ == "__main__":
     if "--test" in sys.argv or "--dryrun" in sys.argv:

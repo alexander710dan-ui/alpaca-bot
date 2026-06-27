@@ -52,8 +52,33 @@ EOF
 
 launchctl unload "$PLIST" 2>/dev/null || true
 launchctl load "$PLIST"
+
+# 5) Auto-sync job: pushes logs to GitHub + pulls code updates every 30 min (if git push works)
+chmod +x sync.sh
+SLABEL="com.alpacabot.sync"
+SPLIST="$HOME/Library/LaunchAgents/$SLABEL.plist"
+cat > "$SPLIST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>$SLABEL</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/bash</string><string>$DIR/sync.sh</string></array>
+  <key>WorkingDirectory</key><string>$DIR</string>
+  <key>StartInterval</key><integer>1800</integer>
+  <key>RunAtLoad</key><true/>
+</dict></plist>
+EOF
+launchctl unload "$SPLIST" 2>/dev/null || true
+launchctl load "$SPLIST"
+if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+  echo "==> Auto-sync ON: logs push to GitHub, code updates pull in, every 30 min."
+else
+  echo "==> NOTE: to enable log-sync to GitHub, run:  gh auth login   (then it just works)."
+fi
+
 echo ""
 echo "==> DONE. The bot is now running and will auto-start on every reboot."
 echo "    Live log:   tail -f $DIR/bot.log"
-echo "    Stop it:    launchctl unload $PLIST"
-echo "    Start it:   launchctl load $PLIST"
+echo "    Stop it:    launchctl unload $PLIST && launchctl unload $SPLIST"
+echo "    Start it:   launchctl load $PLIST && launchctl load $SPLIST"

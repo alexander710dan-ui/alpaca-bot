@@ -1,0 +1,34 @@
+2026-06-27 20:09:42  CONNECTED to Alpaca PAPER (market closed)
+2026-06-27 20:09:42    equity $100,000.00 cash $100,000.00 | holding nothing
+2026-06-27 20:09:44    TQQQ   last    71.83  RSI2  34.6    up  watch (not oversold)
+2026-06-27 20:09:44    SOXL   last   215.60  RSI2  38.4    up  watch (not oversold)
+2026-06-27 20:09:44    SPXL   last   251.65  RSI2   6.5    up  *** BUY candidate ***
+2026-06-27 20:09:44    TECL   last   198.99  RSI2  27.8    up  watch (not oversold)
+2026-06-27 20:09:44    UPRO   last   132.08  RSI2   1.1    up  *** BUY candidate ***
+2026-06-27 20:09:44    TNA    last    73.25  RSI2  68.2    up  watch (not oversold)
+2026-06-27 20:09:44    FAS    last   147.01  RSI2  26.3  down  skip (below 200dMA)
+2026-06-27 20:09:44    LABU   last   276.16  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:09:44    UDOW   last    68.06  RSI2  30.9  down  skip (below 200dMA)
+2026-06-27 20:09:44    DPST   last   143.39  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:09:44    NAIL   last    53.41  RSI2 100.0  down  skip (below 200dMA)
+2026-06-27 20:09:44    RETL   last     9.36  RSI2  58.3    up  watch (not oversold)
+2026-06-27 20:09:44    CURE   last   115.78  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:09:44    FNGU   last    23.97  RSI2  13.3  down  skip (below 200dMA)
+2026-06-27 20:09:44    -> would BUY: UPRO, SPXL
+2026-06-27 20:39:05  CONNECTED to Alpaca PAPER (market closed)
+2026-06-27 20:39:05    equity $100,000.00 cash $100,000.00 | holding nothing
+2026-06-27 20:39:07    TQQQ   last    71.83  RSI2  34.6    up  watch (not oversold)
+2026-06-27 20:39:07    SOXL   last   215.60  RSI2  38.4    up  watch (not oversold)
+2026-06-27 20:39:07    SPXL   last   251.65  RSI2   6.5    up  *** BUY candidate ***
+2026-06-27 20:39:07    TECL   last   198.99  RSI2  27.8    up  watch (not oversold)
+2026-06-27 20:39:07    UPRO   last   132.08  RSI2   1.1    up  *** BUY candidate ***
+2026-06-27 20:39:07    TNA    last    73.25  RSI2  68.2    up  watch (not oversold)
+2026-06-27 20:39:07    FAS    last   147.01  RSI2  26.3  down  skip (below 200dMA)
+2026-06-27 20:39:07    LABU   last   276.16  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:39:07    UDOW   last    68.06  RSI2  30.9  down  skip (below 200dMA)
+2026-06-27 20:39:07    DPST   last   143.39  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:39:07    NAIL   last    53.41  RSI2 100.0  down  skip (below 200dMA)
+2026-06-27 20:39:07    RETL   last     9.36  RSI2  58.3    up  watch (not oversold)
+2026-06-27 20:39:07    CURE   last   115.78  RSI2 100.0    up  watch (not oversold)
+2026-06-27 20:39:07    FNGU   last    23.97  RSI2  13.3  down  skip (below 200dMA)
+2026-06-27 20:39:07    -> would BUY: UPRO, SPXL

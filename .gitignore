@@ -1,5 +1,7 @@
 secrets.env
-*.log
 venv/
 __pycache__/
 .DS_Store
+launchd.out.log
+launchd.err.log
+sync.log
