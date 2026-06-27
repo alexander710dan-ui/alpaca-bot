@@ -7,7 +7,7 @@ the bounce (close back above its 5-day average). **Paper money by default.**
 ## Install on a new Mac (one command)
 
 ```bash
-git clone <YOUR_REPO_URL> alpaca-bot && cd alpaca-bot && bash setup.sh
+git clone https://github.com/alexander710dan-ui/alpaca-bot.git alpaca-bot && cd alpaca-bot && bash setup.sh
 ```
 
 `setup.sh` will:
