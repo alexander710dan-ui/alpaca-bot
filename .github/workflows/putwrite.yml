@@ -1,0 +1,32 @@
+name: putwrite-bot
+on:
+  schedule:
+    - cron: '5 15 * * 1-5'      # once a trading day, ~11am ET (market open)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: putwrite
+  cancel-in-progress: false
+jobs:
+  putwrite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet alpaca-py
+      - name: run put-write bot (cash-secured paper)
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python putwrite_bot.py
+      - name: push log
+        run: |
+          git config user.name "putwrite-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase --autostash -q || true
+          git add -f putwrite.log
+          git diff --cached --quiet || git commit -q -m "putwrite run $(date -u '+%F %H:%M')Z"
+          git push -q || true
