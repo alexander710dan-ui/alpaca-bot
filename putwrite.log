@@ -1,2 +1,4 @@
 2026-06-28 14:11:20  check | equity $100,000 | SPY $732.14 | market closed | short puts: []
 2026-06-28 14:11:20    SELL 1x SPY260724P00732000 (strike $732, exp 2026-07-24) — cash-secured put-write
+2026-06-29 16:18:20  check | equity $100,000 | SPY $738.50 | market OPEN | short puts: []
+2026-06-29 16:18:20    SELL 1x SPY260724P00738000 (strike $738, exp 2026-07-24) — cash-secured put-write
