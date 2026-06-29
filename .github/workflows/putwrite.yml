@@ -22,11 +22,16 @@ jobs:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python putwrite_bot.py
+      - name: shadow accounting (1x/2x/5x, $100k & $10k)
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python shadow.py
       - name: push log
         run: |
           git config user.name "putwrite-bot"
           git config user.email "bot@users.noreply.github.com"
           git pull --rebase --autostash -q || true
-          git add -f hedged.log putwrite.log
+          git add -f putwrite.log shadow_state.json
           git diff --cached --quiet || git commit -q -m "putwrite run $(date -u '+%F %H:%M')Z"
           git push -q || true
