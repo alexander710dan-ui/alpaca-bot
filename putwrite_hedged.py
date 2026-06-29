@@ -16,7 +16,9 @@ Run `python3 putwrite_hedged.py --test` to dry-run (no orders); plain run trades
 import os, sys, datetime, math, logging, logging.handlers
 
 PAPER      = True
-TARGET_LEV = 5.0            # <<< 5x. The aggressive standard you asked for. Paper only.
+TARGET_LEV = 5.0            # <<< 5x leverage, but on a RISK SLEEVE (not the whole account).
+SLEEVE     = 35000          # risk capital: run 5x on THIS (~$175k exposure). Rest stays safe cash.
+                            # auto-capped to fit buying power so it never errors. Max loss ~= the sleeve.
 W_PUT, W_DEF, W_SHORT = 0.60, 0.25, 0.15
 DTE_MIN, DTE_MAX, ROLL_DTE = 25, 40, 7
 
@@ -63,12 +65,15 @@ def atm_put(px):
 
 def run(dry):
     acct=trade.get_account(); E=float(acct.equity); clock=trade.get_clock()
+    bp=float(acct.regt_buying_power or acct.buying_power)
+    # run TARGET_LEV on the SLEEVE, but never let total exposure exceed ~75% of buying power
+    base=min(SLEEVE, 0.75*bp/TARGET_LEV)
     positions={p.symbol:p for p in trade.get_all_positions()}
     spy=price("SPY"); spc=closes("SPY"); s200=sma(spc,200); bear = s200 is not None and spy<s200
-    log.info(f"{'DRY ' if dry else ''}equity ${E:,.0f} | SPY ${spy:.2f} | regime {'BEAR' if bear else 'bull'} | market {'OPEN' if clock.is_open else 'closed'}")
+    log.info(f"{'DRY ' if dry else ''}equity ${E:,.0f} | sleeve ${base:,.0f} x{TARGET_LEV:.0f} = ${base*TARGET_LEV:,.0f} exposure | bp ${bp:,.0f} | SPY ${spy:.2f} | {'BEAR' if bear else 'bull'} | market {'OPEN' if clock.is_open else 'closed'}")
 
     # ---- leg 1: PUT-WRITE (leveraged) ----
-    target_put_notional = W_PUT * TARGET_LEV * E
+    target_put_notional = W_PUT * TARGET_LEV * base
     want_contracts = max(0, round(target_put_notional / (spy*100)))
     shorts=[p for s,p in positions.items() if p.asset_class=="us_option" and float(p.qty)<0]
     cur_contracts=sum(abs(float(p.qty)) for p in shorts)
@@ -93,7 +98,7 @@ def run(dry):
     # ---- leg 2: DEFENSIVE (stronger of GLD/TLT) ----
     gld=closes("GLD"); tlt=closes("TLT")
     pick = "GLD" if mom(gld)>=mom(tlt) else "TLT"
-    defD = W_DEF*TARGET_LEV*E; def_px=price(pick); def_sh=round(defD/def_px)
+    defD = W_DEF*TARGET_LEV*base; def_px=price(pick); def_sh=round(defD/def_px)
     held_def=sum(float(positions[s].qty) for s in ("GLD","TLT") if s in positions)
     log.info(f"  DEFENSIVE: hold {pick} ~${defD:,.0f} ({def_sh} sh)  (currently {held_def:.0f} sh of GLD/TLT)")
     if not dry and clock.is_open:
@@ -106,14 +111,14 @@ def run(dry):
             trade.submit_order(MarketOrderRequest(symbol=pick, qty=abs(delta), side=OrderSide.BUY if delta>0 else OrderSide.SELL, time_in_force=TimeInForce.DAY))
 
     # ---- leg 3: SHORT SPY in bear regime ----
-    short_sh = round(W_SHORT*TARGET_LEV*E/spy) if bear else 0
+    short_sh = round(W_SHORT*TARGET_LEV*base/spy) if bear else 0
     cur_short = -float(positions["SPY"].qty) if "SPY" in positions and float(positions["SPY"].qty)<0 else 0
     log.info(f"  SHORT: target short {short_sh} SPY ({'bear' if bear else 'bull -> none'}), currently short {cur_short:.0f}")
     if not dry and clock.is_open:
         delta=short_sh-cur_short
         if abs(delta)>=1:
             trade.submit_order(MarketOrderRequest(symbol="SPY", qty=abs(delta), side=OrderSide.SELL if delta>0 else OrderSide.BUY, time_in_force=TimeInForce.DAY))
-    log.info(f"  -> gross exposure target ~${TARGET_LEV*E:,.0f} ({TARGET_LEV:.0f}x equity)")
+    log.info(f"  -> gross exposure ~${TARGET_LEV*base:,.0f} = {TARGET_LEV:.0f}x the ${base:,.0f} sleeve (${E-base*0:,.0f} account, rest safe)")
 
 if __name__=="__main__":
     run("--test" in sys.argv or "--dryrun" in sys.argv)
