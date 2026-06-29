@@ -17,16 +17,16 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet alpaca-py
-      - name: run put-write bot (cash-secured paper)
+      - name: run HEDGED 5x put-write bot (paper)
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
-        run: python putwrite_bot.py
+        run: python putwrite_hedged.py
       - name: push log
         run: |
           git config user.name "putwrite-bot"
           git config user.email "bot@users.noreply.github.com"
           git pull --rebase --autostash -q || true
-          git add -f putwrite.log
+          git add -f hedged.log putwrite.log
           git diff --cached --quiet || git commit -q -m "putwrite run $(date -u '+%F %H:%M')Z"
           git push -q || true
