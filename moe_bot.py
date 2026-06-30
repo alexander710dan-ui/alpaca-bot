@@ -273,25 +273,35 @@ def main(dry):
     if not clock.is_open:
         log.info(f"market closed (next {clock.next_open}); no trades."); return
     acct=trade.get_account(); equity=float(acct.equity)
-    cur={p.symbol:(float(p.market_value)) for p in trade.get_all_positions()}
-    log.info(f"equity ${equity:,.0f} | current {len(cur)} positions")
-    # desired notionals
-    want={s:tw.get(s,0.0)*equity for s in set(list(tw)+list(cur))}
-    # close anything not wanted
-    for s,mv in cur.items():
-        if abs(want.get(s,0.0))<1 and abs(mv)>1:
-            side=OrderSide.SELL if mv>0 else OrderSide.BUY
-            log.info(f"  CLOSE {s} (${mv:,.0f})")
-            trade.submit_order(MarketOrderRequest(symbol=s, notional=round(abs(mv),2), side=side, time_in_force=TimeInForce.DAY))
-    # adjust / open
+    pos={p.symbol:p for p in trade.get_all_positions()}
+    curmv={s:float(p.market_value) for s,p in pos.items()}
+    log.info(f"equity ${equity:,.0f} | current {len(pos)} positions")
+    want={s:tw.get(s,0.0)*equity for s in set(list(tw)+list(pos))}
+    def last_price(s):
+        try: return float(pos[s].current_price)
+        except: return CL[s].get(dl[-1]) if s in CL else None
+    # 1) fully close anything not in the target book — by EXACT qty (close_position), never notional
+    for s in list(pos):
+        if abs(want.get(s,0.0))<1:
+            try: log.info(f"  CLOSE {s} (${curmv.get(s,0):,.0f})"); trade.close_position(s)
+            except Exception as e: log.info(f"    close failed {s}: {e}")
+    # 2) adjust / open the rest (each order isolated so one failure can't abort the run)
     for s,wnot in want.items():
         if abs(wnot)<1: continue
-        delta=wnot-cur.get(s,0.0)
+        delta=wnot-curmv.get(s,0.0)
         if abs(delta) < REBAL_BAND*equity: continue
-        side=OrderSide.BUY if delta>0 else OrderSide.SELL
-        log.info(f"  {'BUY' if delta>0 else 'SELL'} {s} ${abs(delta):,.0f} -> target ${wnot:,.0f}")
         try:
-            trade.submit_order(MarketOrderRequest(symbol=s, notional=round(abs(delta),2), side=side, time_in_force=TimeInForce.DAY))
+            if wnot<0:                                   # short target -> whole shares (no fractional shorts)
+                px=last_price(s) or 1.0; cur_sh=float(pos[s].qty) if s in pos else 0.0
+                d=int(-abs(wnot)/px)-int(cur_sh)
+                if abs(d)>=1:
+                    log.info(f"  {'SHORT' if d<0 else 'COVER'} {s} {abs(d)} sh")
+                    trade.submit_order(MarketOrderRequest(symbol=s, qty=abs(d), side=(OrderSide.SELL if d<0 else OrderSide.BUY), time_in_force=TimeInForce.DAY))
+            elif delta<0 and abs(delta) >= abs(curmv.get(s,0.0))*0.98:
+                log.info(f"  CLOSE {s} (reduce~0)"); trade.close_position(s)
+            else:
+                log.info(f"  {'BUY' if delta>0 else 'SELL'} {s} ${abs(delta):,.0f} -> target ${wnot:,.0f}")
+                trade.submit_order(MarketOrderRequest(symbol=s, notional=round(abs(delta),2), side=(OrderSide.BUY if delta>0 else OrderSide.SELL), time_in_force=TimeInForce.DAY))
         except Exception as e:
             log.info(f"    order failed {s}: {e}")
     log.info("done.")
