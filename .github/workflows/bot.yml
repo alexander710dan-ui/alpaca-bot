@@ -1,10 +1,8 @@
-name: trading-bot
+name: trading-bot (RETIRED — superseded by moe.yml / v8)
 on:
-  schedule:
-    # every 15 min during US market hours, in UTC (13:30-20:00 = 9:30am-4pm ET, summer).
-    # offset minutes avoid GitHub's top-of-hour congestion. is_open check handles the edges.
-    - cron: '2,17,32,47 13-20 * * 1-5'
-  workflow_dispatch: {}        # lets us run it manually too
+  # schedule DISABLED 2026-06-30: replaced by the MoE v8 bot (moe_bot.py via putwrite.yml).
+  # Leaving manual trigger only so it never auto-trades and double-books the paper account.
+  workflow_dispatch: {}
 permissions:
   contents: write
 concurrency:
