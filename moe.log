@@ -2,3 +2,15 @@
 2026-06-30 09:24:21    expert weights: dip=0.31 trend=0.15 def=0.00 crash=0.00 core=0.54
 2026-06-30 09:24:21    TARGET book (6 positions): XLK +62%, XLE +8%, XOM +8%, JPM +8%, NVDA +8%, QQQ +8%
 2026-06-30 09:24:23  market closed (next 2026-06-30 09:30:00-04:00); no trades.
+2026-06-30 14:33:00  v8 router | regime BULL | VIX 18.0 | exposure 0.97 x volscale 0.52 x lev 2 = gross 1.01
+2026-06-30 14:33:00    expert weights: dip=0.31 trend=0.15 def=0.00 crash=0.00 core=0.54
+2026-06-30 14:33:00    TARGET book (6 positions): XLK +62%, XLE +8%, XOM +8%, KO +8%, JPM +8%, QQQ +7%
+2026-06-30 14:33:01  equity $100,309 | current 1 positions
+2026-06-30 14:33:01    CLOSE EEM ($16,433)
+2026-06-30 14:33:01    BUY KO $7,814 -> target $7,814
+2026-06-30 14:33:01    BUY JPM $7,814 -> target $7,814
+2026-06-30 14:33:01    BUY XLE $7,814 -> target $7,814
+2026-06-30 14:33:01    BUY XOM $7,814 -> target $7,814
+2026-06-30 14:33:01    BUY XLK $62,503 -> target $62,503
+2026-06-30 14:33:01    BUY QQQ $7,473 -> target $7,473
+2026-06-30 14:33:01  done.
