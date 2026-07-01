@@ -19,3 +19,12 @@
 2026-06-30 17:07:54    TARGET book (6 positions): XLK +62%, XLE +8%, XOM +8%, KO +8%, JPM +8%, QQQ +7%
 2026-06-30 17:07:56  equity $100,538 | current 6 positions
 2026-06-30 17:07:56  done.
+2026-07-01 17:19:54  v8 router | regime BULL | VIX 18.0 | exposure 0.97 x volscale 0.52 x lev 2 = gross 1.00
+2026-07-01 17:19:54    expert weights: dip=0.31 trend=0.15 def=0.00 crash=0.00 core=0.54
+2026-07-01 17:19:54    TARGET book (4 positions): XLK +62%, XLE +16%, KO +16%, QQQ +7%
+2026-07-01 17:19:55  equity $99,416 | current 6 positions
+2026-07-01 17:19:55    CLOSE JPM ($7,908)
+2026-07-01 17:19:56    CLOSE XOM ($7,886)
+2026-07-01 17:19:56    BUY XLE $7,802 -> target $15,539
+2026-07-01 17:19:56    BUY KO $7,727 -> target $15,539
+2026-07-01 17:19:56  done.
