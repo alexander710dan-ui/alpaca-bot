@@ -27,11 +27,16 @@ jobs:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python shadow.py
+      - name: tracker (append daily history for the live dashboard)
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python tracker.py
       - name: push log
         run: |
           git config user.name "moe-bot"
           git config user.email "bot@users.noreply.github.com"
           git pull --rebase --autostash -q || true
-          git add -f moe.log shadow_state.json
+          git add -f moe.log shadow_state.json moe_history.json
           git diff --cached --quiet || git commit -q -m "moe v8 run $(date -u '+%F %H:%M')Z"
           git push -q || true
