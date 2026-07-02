@@ -23,3 +23,9 @@
 2026-07-02 11:00:51    VIXREG: risk-on — hold TQQQ (VIX 16.6)
 2026-07-02 11:00:51  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
 2026-07-02 11:00:51  DRY RUN — no orders.
+2026-07-02 09:01:44    VRP: VIX term-structure data missing/stale — leg stands down
+2026-07-02 09:01:44    BURST: trigger quiet — cash (VIX 16.6 vs 10d 17.8)
+2026-07-02 09:01:44    VIXREG: risk-on — hold TQQQ (VIX 16.6)
+2026-07-02 09:01:44  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
+2026-07-02 09:01:46    skip buy TQQQ (stock market closed; crypto leg still trades)
+2026-07-02 09:01:46  done.
