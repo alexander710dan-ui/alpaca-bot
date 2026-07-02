@@ -68,3 +68,16 @@
 2026-07-02 09:01:51    expert weights: core=0.25 trend2=0.50 tom=0.25
 2026-07-02 09:01:51    TARGET book (8 positions): SPY +29%, XLK +24%, BIL +20%, EFA +7%, DBC +6%, GLD +5%, QQQ +5%, EEM +4%
 2026-07-02 09:01:52  market closed (next 2026-07-02 09:30:00-04:00); no trades.
+2026-07-02 16:53:00  v12 | regime BULL | VIX 16.6 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.80
+2026-07-02 16:53:00    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-07-02 16:53:00    TARGET book (8 positions): SPY +29%, XLK +24%, BIL +20%, EFA +7%, DBC +6%, GLD +5%, QQQ +5%, EEM +4%
+2026-07-02 16:53:02  equity $98,906 | current 0 core positions
+2026-07-02 16:53:02    BUY BIL $19,771 -> target $19,771
+2026-07-02 16:53:03    BUY DBC $5,895 -> target $5,895
+2026-07-02 16:53:03    BUY EEM $3,739 -> target $3,739
+2026-07-02 16:53:03    BUY EFA $6,587 -> target $6,587
+2026-07-02 16:53:03    BUY GLD $5,252 -> target $5,252
+2026-07-02 16:53:03    BUY QQQ $5,242 -> target $5,242
+2026-07-02 16:53:03    BUY SPY $28,732 -> target $28,732
+2026-07-02 16:53:03    BUY XLK $23,688 -> target $23,688
+2026-07-02 16:53:03  done.
