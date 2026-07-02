@@ -1,5 +1,14 @@
 # Strategy research — discoveries log
 
+> **2026-07-02 AUDIT UPDATE — read this first.** A shared live/backtest engine
+> (`moe_core.py` + `research/backtest.py`) reproduced the MoE v8 claim (34%/yr @ 1×,
+> Sharpe 2.09) and showed it exists ONLY with same-day signal application (lookahead):
+> with honest one-day-lag timing, costs and dividends, v8 is ~5%/yr at a 33% drawdown —
+> worse than SPY. The dip expert's edge was also mostly hindsight-picked single names.
+> The numbers below and in the HTML reports inherit those biases; trust only
+> `research/results.md`. The deployed strategy is now **v10** (fixed blend of the
+> honestly-validated sleeves), chosen on 2007–2019 and verified once on held-out 2020+.
+
 This bot currently trades RSI-2 mean-reversion (see `alpaca_bot.py`). Below is the research
 that beats it, for when we're ready to upgrade. **All numbers are backtests — real results
 will be lower, and the leveraged versions carry genuine tail risk.**

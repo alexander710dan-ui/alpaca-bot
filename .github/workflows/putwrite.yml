@@ -1,7 +1,7 @@
 name: moe-v8-bot
 on:
   schedule:
-    - cron: '5 15 * * 1-5'      # once a trading day, ~11am ET (market open)
+    - cron: '5 15 * * 1-5'      # once a trading day: 11:05am ET in summer, 10:05am ET in winter
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -11,28 +11,34 @@ concurrency:
 jobs:
   moe:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install --quiet alpaca-py
-      - name: run MoE v8 bot at 2x (paper)
+      - run: pip install --quiet -r requirements.txt pytest
+      - name: safety tests (must pass or no orders are placed today)
+        run: python -m pytest -q tests/
+      - name: run MoE v10 bot at 2x (paper)
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python moe_bot.py
       - name: shadow accounting (1x/2x/5x, $100k & $10k)
+        if: always()
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python shadow.py
       - name: tracker (append daily history for the live dashboard)
+        if: always()
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python tracker.py
       - name: push log
+        if: always()
         run: |
           git config user.name "moe-bot"
           git config user.email "bot@users.noreply.github.com"

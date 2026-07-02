@@ -1,0 +1,19 @@
+name: watchdog
+on:
+  schedule:
+    - cron: '30 21 * * 1-5'     # after US close — fails loudly (GitHub email) if account looks wrong
+  workflow_dispatch: {}
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: out-of-band account check (no orders, no alpaca-py)
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python monitor.py

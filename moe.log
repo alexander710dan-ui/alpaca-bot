@@ -28,3 +28,31 @@
 2026-07-01 17:19:56    BUY XLE $7,802 -> target $15,539
 2026-07-01 17:19:56    BUY KO $7,727 -> target $15,539
 2026-07-01 17:19:56  done.
+2026-07-02 01:24:08  v8 router | regime BULL | VIX 18.0 | exposure 0.97 x volscale 0.52 x lev 2 = gross 1.01
+2026-07-02 01:24:08    expert weights: dip=0.31 trend=0.15 def=0.00 crash=0.00 core=0.54
+2026-07-02 01:24:08    TARGET book (6 positions): XLK +62%, XLE +8%, KO +8%, JPM +8%, XOM +8%, QQQ +7%
+2026-07-02 01:24:08  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 01:25:43  v8 router | regime BULL | VIX 16.5 | exposure 0.98 x volscale 0.52 x lev 2 = gross 1.02
+2026-07-02 01:25:43    expert weights: dip=0.31 trend=0.14 def=0.00 crash=0.00 core=0.55
+2026-07-02 01:25:43    TARGET book (6 positions): XLK +63%, XLE +8%, KO +8%, JPM +8%, XOM +8%, QQQ +7%
+2026-07-02 01:25:43  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 01:27:12  v8 router | regime BULL | VIX 16.5 | exposure 0.98 x volscale 0.52 x lev 2 = gross 1.02
+2026-07-02 01:27:12    expert weights: dip=0.31 trend=0.14 def=0.00 crash=0.00 core=0.55
+2026-07-02 01:27:12    TARGET book (6 positions): XLK +63%, XLE +8%, KO +8%, JPM +8%, XOM +8%, QQQ +7%
+2026-07-02 01:27:12  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 01:50:58  v10 | regime BULL | VIX 16.5 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.80
+2026-07-02 01:50:58    expert weights: dip=0.20 core=0.30 trend2=0.50
+2026-07-02 01:50:58    TARGET book (9 positions): XLK +29%, BIL +20%, XLE +16%, SPY +9%, QQQ +7%, EFA +6%, DBC +5%, GLD +5%, EEM +4%
+2026-07-02 01:50:58  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 01:53:34  v10 | regime BULL | VIX 16.5 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.80
+2026-07-02 01:53:34    expert weights: dip=0.20 core=0.30 trend2=0.50
+2026-07-02 01:53:34    TARGET book (9 positions): XLK +29%, BIL +20%, XLE +16%, SPY +9%, QQQ +7%, EFA +6%, DBC +5%, GLD +5%, EEM +4%
+2026-07-02 01:53:34  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 02:02:03  v10 | regime BULL | VIX 16.6 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.80
+2026-07-02 02:02:03    expert weights: dip=0.20 core=0.30 trend2=0.50
+2026-07-02 02:02:03    TARGET book (9 positions): XLK +28%, BIL +20%, XLE +16%, SPY +9%, EFA +7%, DBC +6%, GLD +5%, QQQ +5%, EEM +4%
+2026-07-02 02:02:03  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-02 02:13:21  v11 | regime BULL | VIX 16.6 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.42 [volT 0.42] = gross 0.83
+2026-07-02 02:13:21    expert weights: dip=0.15 core=0.25 trend2=0.35 tom=0.25
+2026-07-02 02:13:21    TARGET book (9 positions): SPY +27%, XLK +24%, BIL +17%, XLE +12%, EFA +5%, DBC +4%, GLD +4%, QQQ +4%, EEM +3%
+2026-07-02 02:13:21  DRY RUN — no orders placed. (target book above is what it WOULD hold.)

@@ -1,0 +1,36 @@
+name: moon-sleeve
+on:
+  schedule:
+    - cron: '20 15 * * *'       # daily INCLUDING weekends (crypto never closes); after the core bot
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: moon
+  cancel-in-progress: false
+jobs:
+  moon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet -r requirements.txt pytest
+      - name: safety tests (must pass or no orders)
+        run: python -m pytest -q tests/
+      - name: run moon sleeve (crypto + turbo trend, paper)
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python crypto_bot.py
+      - name: push log
+        if: always()
+        run: |
+          git config user.name "moon-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase --autostash -q || true
+          git add -f moon.log
+          git diff --cached --quiet || git commit -q -m "moon run $(date -u '+%F %H:%M')Z"
+          git push -q || true

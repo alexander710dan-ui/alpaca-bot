@@ -1,6 +1,19 @@
-# Alpaca RSI-2 Bot (paper)
+# Alpaca trading bots (paper)
 
-Autonomous mean-reversion bot. Watches a universe of leveraged ETFs, buys the oversold ones
+**Live bot: `moe_bot.py`** (v10 blend at 2× with a vol-target overlay), run once per trading
+day by `.github/workflows/putwrite.yml`; an independent watchdog (`monitor.py`) checks the
+account after each close. **Satellite: `crypto_bot.py`** — a 20%-of-equity "moon sleeve"
+(BTC/ETH + TQQQ/SOXL trend, `moon.yml`, runs daily incl. weekends) with honestly-quantified
+aspirational odds in `research/moonshot_results.md`; the core bot ignores its symbols. Strategy math is in `moe_core.py`, shared with the honest
+backtester `research/backtest.py` (results + methodology: `research/results.md`). Safety
+layers and the emergency kill switch are documented in **SAFETY.md**; order gating lives in
+`guardrails.py` with tests in `tests/` (`python3 -m pytest -q tests/`). `alpaca_bot.py`
+(RSI-2, below), `allweather_bot.py` and the put-write bots are **retired** — don't schedule
+two bots on the same account; they fight over positions.
+
+---
+
+Original RSI-2 bot: watches a universe of leveraged ETFs, buys the oversold ones
 in an uptrend (2-day RSI < 10, above 200-day average), holds several at once, sells each on
 the bounce (close back above its 5-day average). **Paper money by default.**
 

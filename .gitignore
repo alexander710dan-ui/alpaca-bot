@@ -5,3 +5,4 @@ __pycache__/
 launchd.out.log
 launchd.err.log
 sync.log
+research/cache/
