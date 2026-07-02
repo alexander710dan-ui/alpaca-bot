@@ -278,6 +278,18 @@ V10_WEIGHTS={"trend2":0.50,"dip":0.20,"core":0.30}
 # v11 adds the turn-of-month expert (stable OOS: Sharpe 0.59 dev / 0.57 holdout standalone).
 # Chosen on DEV among tom weights {.10,.20,.25}; frozen 2026-07-02, then ONE holdout look.
 V11_WEIGHTS={"trend2":0.35,"dip":0.15,"core":0.25,"tom":0.25}
+# v12 (edge-factory protocol, chosen on DEV 2011-17 + VAL 2018-19): drops dip (fails the
+# 2018-19 validation window), reweights toward trend2. Sharpe 0.87/0.63/0.79 across
+# dev/val/holdout at 2x vt16 vs v11's 0.75/0.32/0.60. Frozen 2026-07-02.
+V12_WEIGHTS={"trend2":0.50,"core":0.25,"tom":0.25}
+
+def vixreg_on(spy_closes, vix_last, vix_thresh=25.0):
+    """TQQQ regime gate (edge factory 'tqqq_vix_reg', PASS 1.10/0.37/0.68): SPY above its
+    200dma AND VIX below 25, decided on completed bars. Long 3x NASDAQ only in that state."""
+    c=spy_closes
+    if len(c)<201 or vix_last is None: return False
+    s=SMA(c,200)[-1]
+    return s is not None and c[-1]>s and vix_last<vix_thresh
 
 def fixed_router(M, SER, weights=None):
     """Constant expert weights; same return shape as router() so engines are interchangeable."""

@@ -108,6 +108,42 @@ def test_burst_trigger_setups():
     assert not C.burst_trigger([100.0] * 100)            # not enough history -> never fires
 
 
+def test_vixreg_on_gate():
+    up = [100 + i * 0.1 for i in range(300)]
+    assert C.vixreg_on(up, vix_last=20.0)            # uptrend + calm vol -> on
+    assert not C.vixreg_on(up, vix_last=30.0)        # VIX above 25 -> off
+    down = [100 - i * 0.1 for i in range(300)]
+    assert not C.vixreg_on(down, vix_last=15.0)      # below 200dma -> off
+    assert not C.vixreg_on(up[:100], vix_last=15.0)  # not enough history -> off
+    assert not C.vixreg_on(up, vix_last=None)        # no VIX data -> off (fail closed)
+
+
+def test_sig_series_no_lookahead():
+    # the day-wins/factory series builder: perturbing the FINAL bar may change the final
+    # day's return magnitude (price moved) but must never change which days were held.
+    import datetime as dt
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "research"))
+    from daywins import sig_series
+    t0 = int(dt.datetime(2024, 1, 1, 14, 30, tzinfo=dt.timezone.utc).timestamp())
+    bars = [{"t": t0 + i * 86400, "c": 100.0 + (i % 7), "ac": 100.0 + (i % 7)} for i in range(40)]
+    sig = lambda i: bars[i]["c"] > 103.0             # depends only on bar i's close
+    a = sig_series(bars, sig)
+    bars2 = [dict(b) for b in bars]
+    bars2[-1]["c"] = bars2[-1]["ac"] = 5.0           # nuke the last close
+    sig2 = lambda i: bars2[i]["c"] > 103.0
+    b = sig_series(bars2, sig2)
+    assert a[:-1] == b[:-1], "a past day's return changed when only the final bar moved"
+    held_a = abs(a[-1][1]) > 1e-12 or abs(b[-1][1]) > 1e-12
+    # final-day HOLDING is decided at the prior bar in both runs — same sig(i-1)
+    assert (abs(a[-1][1]) > 1e-12) == (abs(b[-1][1]) > 1e-12) or not held_a
+
+
+def test_merge_targets_sums_shared_symbols():
+    import crypto_bot as CB
+    out = CB.merge_targets({"TQQQ": 0.06, "SOXL": 0.02}, {"TQQQ": 0.10}, {"SVXY": 0.04})
+    assert abs(out["TQQQ"] - 0.16) < 1e-12 and out["SOXL"] == 0.02 and out["SVXY"] == 0.04
+
+
 def test_vol_target_multipliers_scale_down_high_vol():
     calm = [0.001] * 300
     wild = [(-1) ** i * 0.03 for i in range(300)]

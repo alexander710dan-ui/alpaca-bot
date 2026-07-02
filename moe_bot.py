@@ -30,7 +30,7 @@ import moe_core as C
 PAPER  = True
 LEV    = 2.0                     # <<< deploy leverage. Set 1.0 for the unleveraged version.
 LEGACY = False                   # False = honest one-day-lag signals (what live can actually do)
-STRAT  = "v11"                   # "v11"/"v10" fixed blends (holdout-validated) | "v8" old router
+STRAT  = "v12"                   # "v12"/"v11"/"v10" fixed blends (holdout-validated) | "v8" old router
 
 # ---- risk overlays (validated out-of-sample in research/backtest.py; see results.md) ----
 USE_VOL_TARGET = True            # scale exposure to a constant realized-vol target
@@ -105,10 +105,10 @@ if _fatal:
 
 # ---------------- strategy (shared core — identical code path to the backtest) ----------------
 M   = C.build_market(DB, {C.uday(r["t"]):r["c"] for r in VIXB})
-D   = C.expert_decisions(M, div=(C.ETF_DIV if STRAT in ("v10","v11") else None))
+D   = C.expert_decisions(M, div=(C.ETF_DIV if STRAT in ("v10","v11","v12") else None))
 HELD,SER = C.expert_series(M, D, legacy=LEGACY)
-if STRAT in ("v10","v11"):
-    W = C.V11_WEIGHTS if STRAT=="v11" else C.V10_WEIGHTS
+if STRAT in ("v10","v11","v12"):
+    W = {"v10":C.V10_WEIGHTS,"v11":C.V11_WEIGHTS,"v12":C.V12_WEIGHTS}[STRAT]
     effS,expoS,sclS,(eff,expo,scl) = C.fixed_router(M, SER, W)
 else:
     effS,expoS,sclS,(eff,expo,scl) = C.router(M, SER, legacy=LEGACY)

@@ -35,6 +35,9 @@ VRP_SYM= "SVXY"
 # Validated research/daywins.py: dev 15%/yr Sharpe 0.66 -> holdout 23%/yr Sharpe 0.74.
 BURST_FRACTION = 0.10           # of account equity, separate from MOON_FRACTION
 BURST_SYM = "UPRO"
+# vix-regime leg (edge factory PASS, Sharpe 1.10/0.37/0.68 dev/val/holdout): long TQQQ only
+# while SPY is above its 200dma AND VIX<25. Lives here because this bot owns TQQQ.
+VIXREG_FRACTION = 0.10
 TO_ALPACA = {"BTC-USD":"BTC/USD","ETH-USD":"ETH/USD"}          # order symbols
 FROM_POS  = {"BTCUSD":"BTC/USD","ETHUSD":"ETH/USD"}            # position symbols -> order symbols
 MA, VOL_N = 200, 60
@@ -100,6 +103,24 @@ def burst_weight():
              + (f" (VIX {vlast:.1f} vs 10d {v10:.1f})" if vlast else ""))
     return {BURST_SYM: BURST_FRACTION} if on else {}
 
+def vixreg_weight():
+    """{TQQQ: w} while SPY>200dma and VIX<25 (completed bars), else {}."""
+    spy=yf("SPY","2y"); vix=yf("^VIX","6mo")
+    now=time.time()
+    if len(spy)<201 or not G.data_fresh(spy[-1]["t"],now,STALE_DAYS) or not vix:
+        log.info("  VIXREG: data missing/stale — leg stands down"); return {}
+    on=C.vixreg_on([r["c"] for r in spy], vix[-1]["c"])
+    log.info(f"  VIXREG: {'risk-on — hold TQQQ' if on else 'gate closed — cash'} (VIX {vix[-1]['c']:.1f})")
+    return {"TQQQ": VIXREG_FRACTION} if on else {}
+
+def merge_targets(*legs):
+    """Sum weights per symbol — a plain dict merge would OVERWRITE when legs share a symbol
+    (turbo and vixreg both trade TQQQ)."""
+    out={}
+    for leg in legs:
+        for s,w in leg.items(): out[s]=out.get(s,0.0)+w
+    return out
+
 def keys():
     k=os.environ.get("ALPACA_KEY"); s=os.environ.get("ALPACA_SECRET"); sf=os.path.join(HERE,"secrets.env")
     if (not k or not s) and os.path.exists(sf):
@@ -111,7 +132,8 @@ def keys():
 def main(dry):
     cw=leg_weights(CRYPTO, MOON_FRACTION*CRYPTO_W)
     tw_eq=leg_weights(TURBO, MOON_FRACTION*TURBO_W)
-    targets={TO_ALPACA.get(s,s):w for s,w in {**cw,**tw_eq,**vrp_weight(),**burst_weight()}.items()}
+    targets={TO_ALPACA.get(s,s):w for s,w in
+             merge_targets(cw, tw_eq, vrp_weight(), burst_weight(), vixreg_weight()).items()}
     log.info("moon sleeve targets: " + (", ".join(f"{s} {w*100:.1f}%" for s,w in targets.items()) or "ALL CASH (nothing trending)"))
     if dry:
         log.info("DRY RUN — no orders."); return

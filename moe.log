@@ -60,3 +60,7 @@
 2026-07-02 00:18:47    expert weights: dip=0.15 core=0.25 trend2=0.35 tom=0.25
 2026-07-02 00:18:47    TARGET book (9 positions): SPY +27%, XLK +24%, BIL +17%, XLE +12%, EFA +5%, DBC +4%, GLD +4%, QQQ +4%, EEM +3%
 2026-07-02 00:18:48  market closed (next 2026-07-02 09:30:00-04:00); no trades.
+2026-07-02 11:00:47  v12 | regime BULL | VIX 16.6 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.80
+2026-07-02 11:00:47    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-07-02 11:00:47    TARGET book (8 positions): SPY +29%, XLK +24%, BIL +20%, EFA +7%, DBC +6%, GLD +5%, QQQ +5%, EEM +4%
+2026-07-02 11:00:47  DRY RUN — no orders placed. (target book above is what it WOULD hold.)

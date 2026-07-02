@@ -1,0 +1,20 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>What it takes to reach $100k</title>
+<style>body{font-family:-apple-system,Segoe UI,sans-serif;background:#0e1117;color:#e6e6e6;margin:24px}
+h1{font-size:20px}.sub{color:#9aa0a6;font-size:13px;max-width:940px;line-height:1.5}
+table{border-collapse:collapse;margin-top:14px;font-size:13px}td,th{border:1px solid #2a2f3a;padding:7px 12px;text-align:right}
+th{background:#161b26}td:first-child,th:first-child{text-align:left}
+.req{color:#e8b339;font-weight:bold}.bad{color:#e06c75}.ok{color:#98c379}</style></head><body>
+<h1>What it takes: $1,000 &rarr; $100,000 in 5 years</h1>
+<div class="sub"><b>The requirement:</b> 100x in 5y = <span class="req">151%/yr CAGR</span>.
+The maximum long-run growth any strategy can compound (betting optimally, full Kelly) is
+Sharpe&sup2;/2 per year &mdash; so the goal REQUIRES a true out-of-sample <span class="req">Sharpe &ge; 1.36</span>
+traded at full Kelly (which means routine 60&ndash;80% drawdowns and ~100%+ annualized vol,
+beyond what spot crypto (1x) and 3x ETFs can even express). Every honest system below is
+measured after costs, lag-1 signals, no lookahead. MC = 20,000 block-bootstrap 5y paths.</div>
+<table><tr><th>system (honest, OOS)</th><th>holdout Sharpe</th><th>holdout CAGR</th><th>MaxDD</th><th>MC median 5y</th><th>P($10k)</th><th>P($100k)</th><th>Kelly ceiling</th><th>implementable</th></tr><tr><td>DEPLOYED full (60/20/10/10)</td><td>0.87</td><td>+14.6%</td><td>28%</td><td>2.8x</td><td>0.1%</td><td class="bad">0.00%</td><td>7x</td><td>6x</td></tr><tr><td>v12 core alone (2x vt16)</td><td>0.79</td><td>+12.7%</td><td>26%</td><td>1.8x</td><td>0.0%</td><td class="bad">0.00%</td><td>5x</td><td>4x</td></tr><tr><td>MOON sleeve (aspirational)</td><td>1.00</td><td>+30.8%</td><td>48%</td><td>9.2x</td><td>46.1%</td><td class="bad">0.46%</td><td>12x</td><td>8x</td></tr><tr><td>burst (day-wins)</td><td>0.50</td><td>+11.7%</td><td>52%</td><td>1.7x</td><td>0.0%</td><td class="bad">0.00%</td><td>2x</td><td>2x</td></tr><tr><td>vix-regime TQQQ</td><td>0.68</td><td>+22.6%</td><td>62%</td><td>2.8x</td><td>8.8%</td><td class="bad">0.00%</td><td>3x</td><td>3x</td></tr><tr><td>BTC buy&hold (reference)</td><td>0.70</td><td>+24.9%</td><td>77%</td><td>8.5x</td><td>46.0%</td><td class="ok">5.91%</td><td>3x</td><td>3x</td></tr><tr><td class='req'>REQUIRED for the goal</td><td class='req'>&ge;1.36</td><td class='req'>151%/yr</td><td class='req'>60-80%</td><td class='req'>100x</td><td>&mdash;</td><td class='req'>&ge;50%</td><td>&mdash;</td><td>&mdash;</td></tr></table>
+<div class="sub" style="margin-top:14px"><b>Reading it:</b> "Kelly ceiling" is the best MEDIAN
+5y multiple the strategy's honest Sharpe could deliver with unlimited, perfectly-sized leverage;
+"implementable" caps volatility at 60% (3x ETFs / spot crypto reality). The goal line is 100x.
+No honest system clears it; the gap is the evidence. Raising the ceiling requires a higher true
+Sharpe: more independent edges, intraday data/execution, or options convexity &mdash; not more leverage.</div>
+</body></html>

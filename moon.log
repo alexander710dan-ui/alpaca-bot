@@ -18,3 +18,8 @@
 2026-07-02 00:26:21    skip buy SVXY (stock market closed; crypto leg still trades)
 2026-07-02 00:26:21    skip buy TQQQ (stock market closed; crypto leg still trades)
 2026-07-02 00:26:21  done.
+2026-07-02 11:00:50    VRP: VIX term-structure data missing/stale — leg stands down
+2026-07-02 11:00:51    BURST: trigger quiet — cash (VIX 16.6 vs 10d 17.8)
+2026-07-02 11:00:51    VIXREG: risk-on — hold TQQQ (VIX 16.6)
+2026-07-02 11:00:51  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
+2026-07-02 11:00:51  DRY RUN — no orders.
