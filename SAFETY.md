@@ -54,9 +54,11 @@ holdout-validated. Expect live to be at or below them.
 
 ## Moon sleeve (crypto_bot.py)
 
-Capped at `MOON_FRACTION` (20%) of equity; long-only, so its worst case is roughly losing
-the sleeve, not the account. Three legs, all gated: BTC/ETH trend (50%), TQQQ/SOXL trend
-(30%), SVXY only while the VIX curve is in contango (20%). The core bot sizes itself on
+Capped at `MOON_FRACTION` (20%) + `BURST_FRACTION` (10%) of equity; long-only, so its worst
+case is roughly losing the sleeves, not the account. Four legs, all gated: BTC/ETH trend
+(50% of moon), TQQQ/SOXL trend (30%), SVXY only while the VIX curve is in contango (20%),
+plus the day-wins BURST leg — cash most days, UPRO for one day when a panic-day setup fires
+(RSI2<5 / 3 down closes / VIX spike / >2.5% down day; research/daywins.py, holdout Sharpe 0.74). The core bot sizes itself on
 equity MINUS the sleeve and never touches its symbols. Honest odds:
 `research/moonshot_results.md` + `research/final_results.md` — sleeve holdout 2020+:
 30.8%/yr, Sharpe 1.00, MaxDD 48%; median 5y multiple ~9x, P(100x in 5y) well under 1% —

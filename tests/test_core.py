@@ -96,6 +96,18 @@ def test_v11_weights_sum_to_one():
     assert abs(sum(C.V11_WEIGHTS.values()) - 1.0) < 1e-9 and "crash" not in C.V11_WEIGHTS
 
 
+def test_burst_trigger_setups():
+    up = [100 + i * 0.1 for i in range(300)]             # calm uptrend, above 200dma
+    assert not C.burst_trigger(up)                       # quiet day -> no trigger
+    assert C.burst_trigger(up[:-1] + [up[-1] * 0.97 * 0.9986])   # >2.5% down day in uptrend
+    assert C.burst_trigger(up[:-3] + [up[-4] - 0.5, up[-4] - 1.0, up[-4] - 1.5])  # 3 down closes
+    assert C.burst_trigger(up, vix_last=30.0, vix10=20.0)         # VIX spike (no trend needed)
+    assert not C.burst_trigger(up, vix_last=21.0, vix10=20.0)
+    down = [100 - i * 0.1 for i in range(300)]           # downtrend: S1/S2/S4 must NOT fire
+    assert not C.burst_trigger(down[:-1] + [down[-1] * 0.97])
+    assert not C.burst_trigger([100.0] * 100)            # not enough history -> never fires
+
+
 def test_vol_target_multipliers_scale_down_high_vol():
     calm = [0.001] * 300
     wild = [(-1) ** i * 0.03 for i in range(300)]

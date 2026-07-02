@@ -48,7 +48,7 @@ STALE_DAYS      = 6              # refuse to trade if freshest SPY/VIX bar is ol
 MIN_SYMBOLS     = 20             # refuse to trade if fewer symbols than this survived the fetch
 MAX_SANE_MOVE   = 0.40           # drop a symbol whose bar-to-bar move exceeds this (bad data)
 REBAL_BAND      = 0.015          # only trade if target differs from current by >1.5% of equity
-IGNORE_SYMBOLS  = {"BTCUSD","ETHUSD","BTC/USD","ETH/USD","TQQQ","SOXL","SVXY"}   # crypto_bot.py's moon sleeve
+IGNORE_SYMBOLS  = {"BTCUSD","ETHUSD","BTC/USD","ETH/USD","TQQQ","SOXL","SVXY","UPRO"}   # crypto_bot.py's sleeves
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 log=logging.getLogger("moe"); log.setLevel(logging.INFO)

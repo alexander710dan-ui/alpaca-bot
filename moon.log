@@ -8,3 +8,7 @@
 2026-07-02 00:18:40    skip buy SVXY (stock market closed; crypto leg still trades)
 2026-07-02 00:18:40    skip buy TQQQ (stock market closed; crypto leg still trades)
 2026-07-02 00:18:40  done.
+2026-07-02 02:25:23    VRP: VIX3M/VIX = 1.155 (contango — sell vol)
+2026-07-02 02:25:24    BURST: trigger quiet — cash (VIX 16.6 vs 10d 17.8)
+2026-07-02 02:25:24  moon sleeve targets: TQQQ 4.3%, SOXL 1.7%, SVXY 4.0%
+2026-07-02 02:25:24  DRY RUN — no orders.

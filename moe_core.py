@@ -286,6 +286,22 @@ def fixed_router(M, SER, weights=None):
     effS={t:eff for t in M["dates"]}; ones={t:1.0 for t in M["dates"]}
     return effS,ones,ones,(eff,1.0,1.0)
 
+# ---------------- burst trigger (day-wins sleeve) ----------------
+def burst_trigger(qqq_closes, vix_last=None, vix10=None):
+    """True if ANY canonical panic-day setup fired on the LAST completed bar (research/daywins.py:
+    validated dev Sharpe 0.66 -> holdout 0.74 executed on a 3x ETF; in-market ~35% of days).
+      S1 RSI2<5 in uptrend | S2 three down closes in uptrend | S3 VIX >1.25x its 10d avg |
+      S4 QQQ fell >2.5% with uptrend intact.  All decided on completed bars only."""
+    c=qqq_closes; n=len(c)
+    if n<205: return False
+    s200=SMA(c,200)[-1]; r2=RSI(c,2)[-1]
+    up=s200 is not None and c[-1]>s200
+    if up and r2 is not None and r2<5: return True
+    if up and c[-1]<c[-2]<c[-3]<c[-4]: return True
+    if vix_last and vix10 and vix_last>1.25*vix10: return True
+    if up and c[-1]/c[-2]-1 < -0.025: return True
+    return False
+
 # ---------------- risk overlays (v9/v10): scale exposure from PAST returns only ----------------
 def vol_target_multipliers(rets, target=0.12, lam=0.94, lo=0.4, hi=1.5):
     """m[i] for day i from EWMA vol of rets[0..i-1]. target = annualized vol target."""

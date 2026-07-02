@@ -30,6 +30,11 @@ CRYPTO_W, TURBO_W, VRP_W = 0.50, 0.30, 0.20
 CRYPTO = ["BTC-USD","ETH-USD"]  # Yahoo symbols
 TURBO  = ["TQQQ","SOXL"]
 VRP_SYM= "SVXY"
+# burst leg (day-wins): cash most days; on panic-day triggers (moe_core.burst_trigger) hold a
+# 3x ETF for the day. UPRO (not TQQQ) so it never collides with the turbo leg's symbols.
+# Validated research/daywins.py: dev 15%/yr Sharpe 0.66 -> holdout 23%/yr Sharpe 0.74.
+BURST_FRACTION = 0.10           # of account equity, separate from MOON_FRACTION
+BURST_SYM = "UPRO"
 TO_ALPACA = {"BTC-USD":"BTC/USD","ETH-USD":"ETH/USD"}          # order symbols
 FROM_POS  = {"BTCUSD":"BTC/USD","ETHUSD":"ETH/USD"}            # position symbols -> order symbols
 MA, VOL_N = 200, 60
@@ -81,6 +86,20 @@ def vrp_weight():
     log.info(f"  VRP: VIX3M/VIX = {contango:.3f} ({'contango — sell vol' if contango>1 else 'backwardation — CASH'})")
     return {VRP_SYM: MOON_FRACTION*VRP_W} if contango>1.0 else {}
 
+def burst_weight():
+    """{UPRO: w} for one day when a panic-day setup fired on yesterday's completed bars."""
+    qqq=yf("QQQ","2y"); vix=yf("^VIX","6mo")
+    now=time.time()
+    if len(qqq)<205 or not G.data_fresh(qqq[-1]["t"],now,STALE_DAYS):
+        log.info("  BURST: QQQ data missing/stale — leg stands down"); return {}
+    vlast=v10=None
+    if vix and G.data_fresh(vix[-1]["t"],now,STALE_DAYS) and len(vix)>=10:
+        vlast=vix[-1]["c"]; v10=sum(r["c"] for r in vix[-10:])/10
+    on=C.burst_trigger([r["c"] for r in qqq], vlast, v10)
+    log.info(f"  BURST: trigger {'FIRED — deploy' if on else 'quiet — cash'}"
+             + (f" (VIX {vlast:.1f} vs 10d {v10:.1f})" if vlast else ""))
+    return {BURST_SYM: BURST_FRACTION} if on else {}
+
 def keys():
     k=os.environ.get("ALPACA_KEY"); s=os.environ.get("ALPACA_SECRET"); sf=os.path.join(HERE,"secrets.env")
     if (not k or not s) and os.path.exists(sf):
@@ -92,7 +111,7 @@ def keys():
 def main(dry):
     cw=leg_weights(CRYPTO, MOON_FRACTION*CRYPTO_W)
     tw_eq=leg_weights(TURBO, MOON_FRACTION*TURBO_W)
-    targets={TO_ALPACA.get(s,s):w for s,w in {**cw,**tw_eq,**vrp_weight()}.items()}
+    targets={TO_ALPACA.get(s,s):w for s,w in {**cw,**tw_eq,**vrp_weight(),**burst_weight()}.items()}
     log.info("moon sleeve targets: " + (", ".join(f"{s} {w*100:.1f}%" for s,w in targets.items()) or "ALL CASH (nothing trending)"))
     if dry:
         log.info("DRY RUN — no orders."); return
@@ -108,7 +127,7 @@ def main(dry):
     if G.daily_loss_breached(equity, last_eq, 0.05):
         log.info(f"account down {(equity/last_eq-1)*100:.1f}% today — moon sleeve stands down."); return
     market_open=trade.get_clock().is_open
-    mine=set(targets)|set(FROM_POS.values())|set(TURBO)|{VRP_SYM}
+    mine=set(targets)|set(FROM_POS.values())|set(TURBO)|{VRP_SYM,BURST_SYM}
     # cancel only OUR stale orders (never touch the core bot's)
     try:
         for o in trade.get_orders():
