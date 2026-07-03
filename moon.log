@@ -35,3 +35,9 @@
 2026-07-02 17:02:29  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
 2026-07-02 17:02:30    BUY TQQQ $14,089
 2026-07-02 17:02:31  done.
+2026-07-03 16:46:27    VRP: VIX term-structure data missing/stale — leg stands down
+2026-07-03 16:46:27    BURST: trigger FIRED — deploy (VIX 16.1 vs 10d 17.6)
+2026-07-03 16:46:28    VIXREG: risk-on — hold TQQQ (VIX 16.1)
+2026-07-03 16:46:28  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, UPRO 10.0%
+2026-07-03 16:46:30    skip buy UPRO (stock market closed; crypto leg still trades)
+2026-07-03 16:46:30  done.
