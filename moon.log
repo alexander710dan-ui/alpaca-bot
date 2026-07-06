@@ -54,3 +54,11 @@
 2026-07-05 16:19:48    skip buy SVXY (stock market closed; crypto leg still trades)
 2026-07-05 16:19:48    skip buy UPRO (stock market closed; crypto leg still trades)
 2026-07-05 16:19:48  done.
+2026-07-06 17:51:27    TQQQ: no fresh data — leg runs without it
+2026-07-06 17:51:27    SOXL: no fresh data — leg runs without it
+2026-07-06 17:51:27    VRP: VIX term-structure data missing/stale — leg stands down
+2026-07-06 17:51:27    BURST: QQQ data missing/stale — leg stands down
+2026-07-06 17:51:27    VIXREG: data missing/stale — leg stands down
+2026-07-06 17:51:27  moon sleeve targets: ALL CASH (nothing trending)
+2026-07-06 17:51:29    CLOSE TQQQ ($14,811)
+2026-07-06 17:51:29  done.
