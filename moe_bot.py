@@ -58,9 +58,11 @@ for h in (logging.handlers.RotatingFileHandler(os.path.join(HERE,"moe.log"),maxB
 
 # ---------------- data (Yahoo; raw close for signals, adjclose for P&L/dividends) ----------------
 def yf(sym, rng="10y"):    # NOTE: range=max silently degrades to MONTHLY bars â€” never use it here
-    url=f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
-    for attempt in range(3):
+    for attempt in range(4):               # alternate hosts + backoff: GH runner IPs get rate-limited
+        host="query1" if attempt%2==0 else "query2"
+        url=f"https://{host}.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
         try:
+            if attempt: time.sleep(2*attempt)
             req=urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0"})
             raw=json.load(urllib.request.urlopen(req, timeout=30))
             res=raw["chart"]["result"][0]; ts=res["timestamp"]; q=res["indicators"]["quote"][0]
@@ -74,7 +76,7 @@ def yf(sym, rng="10y"):    # NOTE: range=max silently degrades to MONTHLY bars â
             out=G.drop_partial_bar(out)      # signals must only see COMPLETED daily bars
             if out: return out
         except Exception as e:
-            if attempt==2: log.info(f"  yahoo fail {sym}: {e}")
+            if attempt==3: log.info(f"  yahoo fail {sym}: {e}")
     return []
 
 # ---------------- fetch + data-quality gates ----------------

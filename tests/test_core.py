@@ -144,6 +144,23 @@ def test_merge_targets_sums_shared_symbols():
     assert abs(out["TQQQ"] - 0.16) < 1e-12 and out["SOXL"] == 0.02 and out["SVXY"] == 0.04
 
 
+def test_apply_freeze_protects_positions_from_data_outage():
+    # regression for 2026-07-06: full Yahoo outage produced ALL-CASH targets and the bot
+    # CLOSED a healthy TQQQ position. Frozen symbols must be neither traded nor closed.
+    import crypto_bot as CB
+    import guardrails as G
+    targets = {"SOXL": 0.02}                       # outage: TQQQ/UPRO produced no targets
+    positions = {"TQQQ": (14_800.0, 150.0), "UPRO": (9_900.0, 80.0), "SOXL": (1_700.0, 40.0)}
+    t, p = CB.apply_freeze(targets, positions, frozen={"TQQQ", "UPRO"})
+    actions, _ = G.plan_orders(t, 100_000.0, p, {s: None for s in p})
+    touched = {a[1] for a in actions}
+    assert "TQQQ" not in touched and "UPRO" not in touched
+    # and a REAL signal (not frozen) still closes normally
+    t2, p2 = CB.apply_freeze({}, {"TQQQ": (14_800.0, 150.0)}, frozen=set())
+    actions2, _ = G.plan_orders(t2, 100_000.0, p2, {"TQQQ": None})
+    assert ("close", "TQQQ") in actions2
+
+
 def test_vol_target_multipliers_scale_down_high_vol():
     calm = [0.001] * 300
     wild = [(-1) ** i * 0.03 for i in range(300)]

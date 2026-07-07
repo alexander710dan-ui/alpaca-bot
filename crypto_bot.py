@@ -50,8 +50,9 @@ for h in (logging.handlers.RotatingFileHandler(os.path.join(HERE,"moon.log"),max
     h.setFormatter(_f); log.addHandler(h)
 
 def yf(sym, rng="2y"):
-    url=f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
-    for attempt in range(3):
+    for attempt in range(4):                    # alternate hosts + backoff: GH runner IPs get rate-limited
+        host="query1" if attempt%2==0 else "query2"
+        url=f"https://{host}.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
         try:
             req=urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0"})
             raw=json.load(urllib.request.urlopen(req, timeout=30))
@@ -60,58 +61,71 @@ def yf(sym, rng="2y"):
             out=G.drop_partial_bar(out)         # completed bars only, crypto included
             if out: return out
         except Exception as e:
-            if attempt==2: log.info(f"  yahoo fail {sym}: {e}")
+            if attempt==3: log.info(f"  yahoo fail {sym}: {e}")
+            else: time.sleep(1+2*attempt)
     return []
 
 def leg_weights(syms, leg_total):
-    """{yahoo_sym: weight} — MA200 trend filter + inverse-60d-vol, decided on completed bars."""
-    iv={}
+    """({yahoo_sym: weight}, frozen_syms) — MA200 trend + inverse-60d-vol on completed bars.
+    A symbol whose DATA is missing/stale goes to `frozen`: its existing position must be
+    left untouched (a data outage is not a sell signal — see 2026-07-06 incident)."""
+    iv={}; frozen=[]
     now=time.time()
     for s in syms:
         b=yf(s)
         if len(b)<MA+VOL_N+2 or not G.data_fresh(b[-1]["t"], now, STALE_DAYS):
-            log.info(f"  {s}: no fresh data — leg runs without it"); continue
+            log.info(f"  {s}: no fresh data — FROZEN (position untouched)"); frozen.append(s); continue
         c=[r["c"] for r in b]; m=C.SMA(c,MA)[-1]
         if m and c[-1]>m:
             rs=[c[i]/c[i-1]-1 for i in range(len(c)-VOL_N,len(c))]
             mu=sum(rs)/len(rs); v=(sum((x-mu)**2 for x in rs)/len(rs))**0.5
             if v>1e-9: iv[s]=1.0/v
     tot=sum(iv.values())
-    return {s:leg_total*w/tot for s,w in iv.items()} if tot else {}
+    return ({s:leg_total*w/tot for s,w in iv.items()} if tot else {}), frozen
+
+def apply_freeze(targets, positions, frozen):
+    """Remove frozen symbols from BOTH targets and positions so the planner can neither
+    trade nor close them this run. Pure function (tested)."""
+    t={s:w for s,w in targets.items() if s not in frozen}
+    p={s:v for s,v in positions.items() if s not in frozen}
+    return t,p
 
 def vrp_weight():
-    """{SVXY: w} while the VIX curve is in contango (measured on completed bars), else {}."""
+    """({SVXY: w}, frozen) — SVXY while the VIX curve is in contango (completed bars).
+    Data outage freezes SVXY (existing position untouched); a real backwardation signal closes it."""
     vix=yf("^VIX","6mo"); v3m=yf("^VIX3M","6mo")
     now=time.time()
     if not vix or not v3m or not G.data_fresh(vix[-1]["t"],now,STALE_DAYS) or not G.data_fresh(v3m[-1]["t"],now,STALE_DAYS):
-        log.info("  VRP: VIX term-structure data missing/stale — leg stands down"); return {}
+        log.info("  VRP: VIX term-structure data missing/stale — FROZEN"); return {},[VRP_SYM]
     contango=v3m[-1]["c"]/vix[-1]["c"]
     log.info(f"  VRP: VIX3M/VIX = {contango:.3f} ({'contango — sell vol' if contango>1 else 'backwardation — CASH'})")
-    return {VRP_SYM: MOON_FRACTION*VRP_W} if contango>1.0 else {}
+    return ({VRP_SYM: MOON_FRACTION*VRP_W} if contango>1.0 else {}), []
 
 def burst_weight():
-    """{UPRO: w} for one day when a panic-day setup fired on yesterday's completed bars."""
+    """({UPRO: w}, frozen) — one-day hold when a panic-day setup fired on completed bars.
+    Data outage freezes UPRO rather than closing it mid-trade."""
     qqq=yf("QQQ","2y"); vix=yf("^VIX","6mo")
     now=time.time()
     if len(qqq)<205 or not G.data_fresh(qqq[-1]["t"],now,STALE_DAYS):
-        log.info("  BURST: QQQ data missing/stale — leg stands down"); return {}
+        log.info("  BURST: QQQ data missing/stale — FROZEN"); return {},[BURST_SYM]
     vlast=v10=None
     if vix and G.data_fresh(vix[-1]["t"],now,STALE_DAYS) and len(vix)>=10:
         vlast=vix[-1]["c"]; v10=sum(r["c"] for r in vix[-10:])/10
     on=C.burst_trigger([r["c"] for r in qqq], vlast, v10)
     log.info(f"  BURST: trigger {'FIRED — deploy' if on else 'quiet — cash'}"
              + (f" (VIX {vlast:.1f} vs 10d {v10:.1f})" if vlast else ""))
-    return {BURST_SYM: BURST_FRACTION} if on else {}
+    return ({BURST_SYM: BURST_FRACTION} if on else {}), []
 
 def vixreg_weight():
-    """{TQQQ: w} while SPY>200dma and VIX<25 (completed bars), else {}."""
+    """({TQQQ: w}, frozen) — TQQQ while SPY>200dma and VIX<25 (completed bars).
+    Data outage freezes TQQQ (which also pauses the turbo leg's TQQQ adjustments — conservative)."""
     spy=yf("SPY","2y"); vix=yf("^VIX","6mo")
     now=time.time()
     if len(spy)<201 or not G.data_fresh(spy[-1]["t"],now,STALE_DAYS) or not vix:
-        log.info("  VIXREG: data missing/stale — leg stands down"); return {}
+        log.info("  VIXREG: data missing/stale — FROZEN"); return {},["TQQQ"]
     on=C.vixreg_on([r["c"] for r in spy], vix[-1]["c"])
     log.info(f"  VIXREG: {'risk-on — hold TQQQ' if on else 'gate closed — cash'} (VIX {vix[-1]['c']:.1f})")
-    return {"TQQQ": VIXREG_FRACTION} if on else {}
+    return ({"TQQQ": VIXREG_FRACTION} if on else {}), []
 
 def merge_targets(*legs):
     """Sum weights per symbol — a plain dict merge would OVERWRITE when legs share a symbol
@@ -130,10 +144,12 @@ def keys():
     return k,s
 
 def main(dry):
-    cw=leg_weights(CRYPTO, MOON_FRACTION*CRYPTO_W)
-    tw_eq=leg_weights(TURBO, MOON_FRACTION*TURBO_W)
-    targets={TO_ALPACA.get(s,s):w for s,w in
-             merge_targets(cw, tw_eq, vrp_weight(), burst_weight(), vixreg_weight()).items()}
+    cw,f1=leg_weights(CRYPTO, MOON_FRACTION*CRYPTO_W)
+    tw_eq,f2=leg_weights(TURBO, MOON_FRACTION*TURBO_W)
+    vw,f3=vrp_weight(); bw,f4=burst_weight(); xw,f5=vixreg_weight()
+    targets={TO_ALPACA.get(s,s):w for s,w in merge_targets(cw, tw_eq, vw, bw, xw).items()}
+    frozen={TO_ALPACA.get(s,s) for s in f1+f2+f3+f4+f5}
+    if frozen: log.info(f"  FROZEN this run (data outage — positions untouched): {sorted(frozen)}")
     log.info("moon sleeve targets: " + (", ".join(f"{s} {w*100:.1f}%" for s,w in targets.items()) or "ALL CASH (nothing trending)"))
     if dry:
         log.info("DRY RUN — no orders."); return
@@ -160,6 +176,7 @@ def main(dry):
     for p in trade.get_all_positions():
         sym=FROM_POS.get(p.symbol, p.symbol)
         if sym in mine: pos[sym]=(float(p.market_value), float(p.qty))
+    targets,pos=apply_freeze(targets, pos, frozen)      # frozen symbols: neither traded nor closed
     prices={s:None for s in mine}                       # sleeve is long-only; no short sizing needed
     actions,warnings=G.plan_orders(targets, equity, pos, prices,
                                    rebal_band=REBAL_BAND, max_order_frac=MAX_ORDER_FRAC, max_orders=MAX_ORDERS)
