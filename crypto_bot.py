@@ -90,16 +90,35 @@ def apply_freeze(targets, positions, frozen):
     p={s:v for s,v in positions.items() if s not in frozen}
     return t,p
 
+def contango_ratio(vix, v3m, max_lag_bars=3):
+    """Date-aligned VIX3M/VIX from bar lists, or None if unusable.
+
+    Yahoo publishes ^VIX3M closes late and with null holes (e.g. 2026-07-06), so wall-clock
+    freshness kept freezing the leg. Instead: take the latest date BOTH series have, require
+    it within `max_lag_bars` TRADING days of the freshest ^VIX bar, and divide by the HIGHER
+    of the paired VIX and the freshest VIX — so a vol spike after the last aligned reading
+    pushes the ratio down and closes the gate on its own (conservative by construction)."""
+    vd={C.uday(r["t"]):r["c"] for r in vix}
+    v3={C.uday(r["t"]):r["c"] for r in v3m}
+    common=sorted(set(vd)&set(v3))
+    if not common: return None
+    d=common[-1]
+    days=sorted(vd)
+    if d<days[max(0,len(days)-max_lag_bars)]: return None      # pair too far behind live VIX
+    return v3[d]/max(vd[d], vd[days[-1]])
+
 def vrp_weight():
     """({SVXY: w}, frozen) — SVXY while the VIX curve is in contango (completed bars).
     Data outage freezes SVXY (existing position untouched); a real backwardation signal closes it."""
     vix=yf("^VIX","6mo"); v3m=yf("^VIX3M","6mo")
     now=time.time()
-    if not vix or not v3m or not G.data_fresh(vix[-1]["t"],now,STALE_DAYS) or not G.data_fresh(v3m[-1]["t"],now,STALE_DAYS):
-        log.info("  VRP: VIX term-structure data missing/stale — FROZEN"); return {},[VRP_SYM]
-    contango=v3m[-1]["c"]/vix[-1]["c"]
-    log.info(f"  VRP: VIX3M/VIX = {contango:.3f} ({'contango — sell vol' if contango>1 else 'backwardation — CASH'})")
-    return ({VRP_SYM: MOON_FRACTION*VRP_W} if contango>1.0 else {}), []
+    if not vix or not G.data_fresh(vix[-1]["t"],now,STALE_DAYS):
+        log.info("  VRP: VIX data missing/stale — FROZEN"); return {},[VRP_SYM]
+    r=contango_ratio(vix, v3m) if v3m else None
+    if r is None:
+        log.info("  VRP: no usable date-aligned VIX3M/VIX pair — FROZEN"); return {},[VRP_SYM]
+    log.info(f"  VRP: VIX3M/VIX = {r:.3f} ({'contango — sell vol' if r>1 else 'backwardation — CASH'})")
+    return ({VRP_SYM: MOON_FRACTION*VRP_W} if r>1.0 else {}), []
 
 def burst_weight():
     """({UPRO: w}, frozen) — one-day hold when a panic-day setup fired on completed bars.

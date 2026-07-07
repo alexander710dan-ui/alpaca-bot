@@ -144,6 +144,21 @@ def test_merge_targets_sums_shared_symbols():
     assert abs(out["TQQQ"] - 0.16) < 1e-12 and out["SOXL"] == 0.02 and out["SVXY"] == 0.04
 
 
+def test_contango_ratio_handles_laggy_vix3m():
+    import crypto_bot as CB
+    day = 86400
+    t0 = ts(2026, 7, 1, 13)
+    vix = [{"t": t0 + i * day, "c": 16.0} for i in range(5)]            # fresh through day 5
+    v3m = [{"t": t0 + i * day, "c": 17.6} for i in range(4)]            # lags one day (null hole)
+    r = CB.contango_ratio(vix, v3m)
+    assert r is not None and abs(r - 17.6 / 16.0) < 1e-9                # 1-day lag tolerated
+    v3m_old = v3m[:1]                                                   # 4 trading days behind
+    assert CB.contango_ratio(vix, v3m_old) is None                      # too stale -> unusable
+    vix_spike = vix[:-1] + [{"t": vix[-1]["t"], "c": 24.0}]             # vol spiked after pair
+    r2 = CB.contango_ratio(vix_spike, v3m)
+    assert r2 is not None and r2 < 1.0                                  # gate closes itself
+
+
 def test_apply_freeze_protects_positions_from_data_outage():
     # regression for 2026-07-06: full Yahoo outage produced ALL-CASH targets and the bot
     # CLOSED a healthy TQQQ position. Frozen symbols must be neither traded nor closed.
