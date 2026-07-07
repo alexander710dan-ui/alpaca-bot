@@ -147,7 +147,7 @@ def test_merge_targets_sums_shared_symbols():
 def test_contango_ratio_handles_laggy_vix3m():
     import crypto_bot as CB
     day = 86400
-    t0 = ts(2026, 7, 1, 13)
+    t0 = int(datetime.datetime(2026, 7, 1, 13, tzinfo=datetime.timezone.utc).timestamp())
     vix = [{"t": t0 + i * day, "c": 16.0} for i in range(5)]            # fresh through day 5
     v3m = [{"t": t0 + i * day, "c": 17.6} for i in range(4)]            # lags one day (null hole)
     r = CB.contango_ratio(vix, v3m)
