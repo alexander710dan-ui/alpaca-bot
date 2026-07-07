@@ -68,3 +68,10 @@
 2026-07-07 13:10:08    FROZEN this run (data outage — positions untouched): ['SVXY']
 2026-07-07 13:10:08  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
 2026-07-07 13:10:08  DRY RUN — no orders.
+2026-07-07 17:26:51    VRP: VIX term-structure data missing/stale — FROZEN
+2026-07-07 17:26:51    BURST: trigger quiet — cash (VIX 15.6 vs 10d 17.5)
+2026-07-07 17:26:51    VIXREG: risk-on — hold TQQQ (VIX 15.6)
+2026-07-07 17:26:51    FROZEN this run (data outage — positions untouched): ['SVXY']
+2026-07-07 17:26:51  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
+2026-07-07 17:26:53    BUY TQQQ $14,305
+2026-07-07 17:26:53  done.
