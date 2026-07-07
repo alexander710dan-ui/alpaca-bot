@@ -94,3 +94,11 @@
 2026-07-06 17:46:06    SELL SPY $3,729 -> target $25,264
 2026-07-06 17:46:06    SELL XLK $3,255 -> target $20,833
 2026-07-06 17:46:06  done.
+2026-07-07 17:19:33  v12 | regime BULL | VIX 15.6 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.40 [volT 0.40] = gross 0.81
+2026-07-07 17:19:33    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-07-07 17:19:33    TARGET book (8 positions): BIL +39%, XLK +24%, SPY +9%, EFA +7%, DBC +6%, GLD +5%, QQQ +5%, EEM +4%
+2026-07-07 17:19:34  equity $100,066 | current 8 core positions
+2026-07-07 17:19:34    SELL SPY $16,080 -> target $9,136
+2026-07-07 17:19:34    BUY BIL $23,195 -> target $39,476
+2026-07-07 17:19:34    BUY XLK $3,730 -> target $24,186
+2026-07-07 17:19:34  done.
