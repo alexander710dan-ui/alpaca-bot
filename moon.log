@@ -91,3 +91,14 @@
 2026-07-08 16:51:29    VIXREG: risk-on — hold TQQQ (VIX 16.1)
 2026-07-08 16:51:29  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-07-08 16:51:30  done.
+2026-07-09 10:20:38    VRP: no usable date-aligned VIX3M/VIX pair — FROZEN
+2026-07-09 10:20:45    BURST: trigger quiet — cash (VIX 16.9 vs 10d 17.1)
+2026-07-09 10:20:53    VIXREG: risk-on — hold TQQQ (VIX 16.9)
+2026-07-09 10:20:53    FROZEN this run (data outage — positions untouched): ['SVXY']
+2026-07-09 10:20:53  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%
+2026-07-09 10:20:53  DRY RUN — no orders.
+2026-07-09 10:22:48    VRP: VIX3M/VIX = 1.151 (contango — sell vol)
+2026-07-09 10:22:49    BURST: trigger quiet — cash (VIX 16.9 vs 10d 17.1)
+2026-07-09 10:22:50    VIXREG: risk-on — hold TQQQ (VIX 16.9)
+2026-07-09 10:22:50  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-07-09 10:22:50  DRY RUN — no orders.

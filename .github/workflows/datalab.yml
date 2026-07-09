@@ -1,0 +1,37 @@
+name: datalab
+on:
+  schedule:
+    - cron: '15 22 * * 1-5'     # after US close — append the day's data to both SQLite DBs
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: datalab
+  cancel-in-progress: false
+jobs:
+  datalab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: bot data -> bot_data.sqlite
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python datalab/bot_logger.py
+      - name: news + reactions -> news_data.sqlite
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+        run: python datalab/news_logger.py
+      - name: commit datasets
+        run: |
+          git config user.name "datalab"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase --autostash -q || true
+          git add -f datalab/bot_data.sqlite datalab/news_data.sqlite
+          git diff --cached --quiet || git commit -q -m "datalab $(date -u '+%F')"
+          git push -q || true

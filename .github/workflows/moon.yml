@@ -1,7 +1,9 @@
 name: moon-sleeve
 on:
-  schedule:
-    - cron: '20 15 * * *'       # daily INCLUDING weekends (crypto never closes); after the core bot
+  schedule:                    # staggered (GH cron drift); daily INCL weekends (crypto);
+    - cron: '50 13 * * *'       # each 10 min after the core bot's slots
+    - cron: '20 14 * * *'
+    - cron: '20 15 * * *'
   workflow_dispatch: {}
 permissions:
   contents: write

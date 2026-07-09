@@ -56,7 +56,49 @@ _f=logging.Formatter("%(asctime)s  %(message)s","%Y-%m-%d %H:%M:%S")
 for h in (logging.handlers.RotatingFileHandler(os.path.join(HERE,"moe.log"),maxBytes=1_000_000,backupCount=3), logging.StreamHandler()):
     h.setFormatter(_f); log.addHandler(h)
 
-# ---------------- data (Yahoo; raw close for signals, adjclose for P&L/dividends) ----------------
+def keys():
+    k=os.environ.get("ALPACA_KEY"); s=os.environ.get("ALPACA_SECRET"); sf=os.path.join(HERE,"secrets.env")
+    if (not k or not s) and os.path.exists(sf):
+        for line in open(sf):
+            if line.startswith("ALPACA_KEY="): k=line.split("=",1)[1].strip()
+            if line.startswith("ALPACA_SECRET="): s=line.split("=",1)[1].strip()
+    return k,s
+ALP_K,ALP_S=keys()
+
+# ---------------- data: Alpaca (IEX) primary, Yahoo fallback; VIX from Yahoo ----------------
+def alp_daily(symbols, years=3):
+    """Batch daily bars from Alpaca: raw ('split') closes for signals + 'all'-adjusted for
+    P&L, matching the Yahoo close/adjclose convention. {} on failure -> Yahoo fallback.
+    Two Yahoo incidents in week one (outage sold TQQQ; null bars froze SVXY) motivated this."""
+    if not ALP_K: return {}
+    start=(datetime.date.today()-datetime.timedelta(days=int(years*365.25+30))).isoformat()
+    acc={}
+    try:
+        for adj,key in (("split","c"),("all","ac")):
+            token=""
+            while True:
+                url=("https://data.alpaca.markets/v2/stocks/bars?symbols="+",".join(symbols)
+                     +f"&timeframe=1Day&start={start}&adjustment={adj}&feed=iex&limit=10000"
+                     +(f"&page_token={token}" if token else ""))
+                req=urllib.request.Request(url, headers={"APCA-API-KEY-ID":ALP_K,"APCA-API-SECRET-KEY":ALP_S})
+                d=json.load(urllib.request.urlopen(req, timeout=30))
+                for s,bs in (d.get("bars") or {}).items():
+                    m=acc.setdefault(s,{})
+                    for b in bs:
+                        if not b.get("c"): continue
+                        ts=int(datetime.datetime.fromisoformat(b["t"].replace("Z","+00:00")).timestamp())
+                        m.setdefault(ts,{})[key]=b["c"]
+                token=d.get("next_page_token")
+                if not token: break
+        out={}
+        for s,m in acc.items():
+            bars=[{"t":t,"c":v["c"],"ac":v.get("ac",v["c"])} for t,v in sorted(m.items()) if v.get("c") and v["c"]>0]
+            out[s]=G.drop_partial_bar(bars)
+        return out
+    except Exception as e:
+        log.info(f"  alpaca bars unavailable ({e}); falling back to Yahoo")
+        return {}
+
 def yf(sym, rng="10y"):    # NOTE: range=max silently degrades to MONTHLY bars â€” never use it here
     for attempt in range(4):               # alternate hosts + backoff: GH runner IPs get rate-limited
         host="query1" if attempt%2==0 else "query2"
@@ -81,7 +123,14 @@ def yf(sym, rng="10y"):    # NOTE: range=max silently degrades to MONTHLY bars â
 
 # ---------------- fetch + data-quality gates ----------------
 SYMS=C.all_symbols()
-DB={s:yf(s) for s in SYMS}; DB={s:b for s,b in DB.items() if len(b)>=300}
+_ALP=alp_daily(SYMS)
+DB={}
+for _s in SYMS:
+    _b=_ALP.get(_s,[])
+    if len(_b)<300: _b=yf(_s)                      # per-symbol Yahoo fallback
+    if len(_b)>=300: DB[_s]=_b
+log.info(f"data: {sum(1 for s in DB if len(_ALP.get(s,[]))>=300)} syms via alpaca, "
+         f"{sum(1 for s in DB if len(_ALP.get(s,[]))<300)} via yahoo fallback")
 VIXB=yf("^VIX")
 
 def _insane(b):
@@ -145,14 +194,6 @@ log.info(f"  expert weights: " + " ".join(f"{k}={eff.get(k,0.0):.2f}" for k in K
 log.info(f"  TARGET book ({len(tw)} positions): " + ", ".join(f"{s} {w*100:+.0f}%" for s,w in sorted(tw.items(),key=lambda x:-abs(x[1]))))
 
 # ---------------- execution (Alpaca, through guardrails) ----------------
-def keys():
-    k=os.environ.get("ALPACA_KEY"); s=os.environ.get("ALPACA_SECRET"); sf=os.path.join(HERE,"secrets.env")
-    if (not k or not s) and os.path.exists(sf):
-        for line in open(sf):
-            if line.startswith("ALPACA_KEY="): k=line.split("=",1)[1].strip()
-            if line.startswith("ALPACA_SECRET="): s=line.split("=",1)[1].strip()
-    return k,s
-
 def portfolio_history_equities(k,s):
     """Daily equity curve from Alpaca (drawdown breaker). None on failure -> FAIL CLOSED."""
     base_url="https://paper-api.alpaca.markets" if PAPER else "https://api.alpaca.markets"

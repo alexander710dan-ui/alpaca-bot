@@ -48,6 +48,16 @@ def main():
         print(f"MONITOR: equity ${eq:,.0f} | day {(eq/last-1)*100:+.2f}% | dd {dd:.1%} | open orders {len(orders)}")
     except Exception as e:
         problems.append(f"cannot read account: {e}")
+    # liveness: a bot that silently stops RUNNING looks healthy — check its data heartbeat.
+    try:
+        import datetime
+        hist=json.load(open(os.path.join(HERE,"moe_history.json")))
+        gen=datetime.datetime.fromisoformat(hist["generated"].replace("Z","+00:00"))
+        age=(datetime.datetime.now(datetime.timezone.utc)-gen).total_seconds()/86400
+        print(f"MONITOR: last bot heartbeat {age:.1f} days ago")
+        if age>3.5: problems.append(f"bot has not produced data for {age:.1f} days — cron dead?")
+    except Exception as e:
+        problems.append(f"cannot verify bot heartbeat: {e}")
     for p in problems: print(f"MONITOR ALERT: {p}")
     return 1 if problems else 0
 

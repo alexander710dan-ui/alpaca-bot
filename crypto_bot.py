@@ -72,7 +72,7 @@ def leg_weights(syms, leg_total):
     iv={}; frozen=[]
     now=time.time()
     for s in syms:
-        b=yf(s)
+        b=bars(s)
         if len(b)<MA+VOL_N+2 or not G.data_fresh(b[-1]["t"], now, STALE_DAYS):
             log.info(f"  {s}: no fresh data — FROZEN (position untouched)"); frozen.append(s); continue
         c=[r["c"] for r in b]; m=C.SMA(c,MA)[-1]
@@ -107,10 +107,28 @@ def contango_ratio(vix, v3m, max_lag_bars=3):
     if d<days[max(0,len(days)-max_lag_bars)]: return None      # pair too far behind live VIX
     return v3[d]/max(vd[d], vd[days[-1]])
 
+def cboe_vix3m():
+    """VIX3M daily closes from CBOE's OFFICIAL CSV — current through the prior close.
+    (Yahoo's ^VIX3M copy lags days behind with null holes; it froze this leg twice.)"""
+    try:
+        import csv, io
+        url="https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv"
+        raw=urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"}),timeout=30).read().decode()
+        out=[]
+        for r in csv.reader(io.StringIO(raw)):
+            try:
+                m,d_,y=r[0].split("/")
+                t=int(datetime.datetime(int(y),int(m),int(d_),13,30,tzinfo=datetime.timezone.utc).timestamp())
+                out.append({"t":t,"c":float(r[4])})
+            except (ValueError,IndexError): continue
+        return out
+    except Exception as e:
+        log.info(f"  cboe vix3m fail: {e}"); return []
+
 def vrp_weight():
     """({SVXY: w}, frozen) — SVXY while the VIX curve is in contango (completed bars).
     Data outage freezes SVXY (existing position untouched); a real backwardation signal closes it."""
-    vix=yf("^VIX","6mo"); v3m=yf("^VIX3M","6mo")
+    vix=yf("^VIX","6mo"); v3m=cboe_vix3m() or yf("^VIX3M","6mo")
     now=time.time()
     if not vix or not G.data_fresh(vix[-1]["t"],now,STALE_DAYS):
         log.info("  VRP: VIX data missing/stale — FROZEN"); return {},[VRP_SYM]
@@ -123,7 +141,7 @@ def vrp_weight():
 def burst_weight():
     """({UPRO: w}, frozen) — one-day hold when a panic-day setup fired on completed bars.
     Data outage freezes UPRO rather than closing it mid-trade."""
-    qqq=yf("QQQ","2y"); vix=yf("^VIX","6mo")
+    qqq=bars("QQQ"); vix=yf("^VIX","6mo")
     now=time.time()
     if len(qqq)<205 or not G.data_fresh(qqq[-1]["t"],now,STALE_DAYS):
         log.info("  BURST: QQQ data missing/stale — FROZEN"); return {},[BURST_SYM]
@@ -138,7 +156,7 @@ def burst_weight():
 def vixreg_weight():
     """({TQQQ: w}, frozen) — TQQQ while SPY>200dma and VIX<25 (completed bars).
     Data outage freezes TQQQ (which also pauses the turbo leg's TQQQ adjustments — conservative)."""
-    spy=yf("SPY","2y"); vix=yf("^VIX","6mo")
+    spy=bars("SPY"); vix=yf("^VIX","6mo")
     now=time.time()
     if len(spy)<201 or not G.data_fresh(spy[-1]["t"],now,STALE_DAYS) or not vix:
         log.info("  VIXREG: data missing/stale — FROZEN"); return {},["TQQQ"]
@@ -161,6 +179,33 @@ def keys():
             if line.startswith("ALPACA_KEY="): k=line.split("=",1)[1].strip()
             if line.startswith("ALPACA_SECRET="): s=line.split("=",1)[1].strip()
     return k,s
+ALP_K,ALP_S=keys()
+
+def bars(sym, days=900):
+    """Daily bars: Alpaca primary (equities via IEX, crypto via v1beta3), Yahoo fallback.
+    ^indices always come from Yahoo (Alpaca doesn't serve them)."""
+    if sym.startswith("^"): return yf(sym,"6mo")
+    if ALP_K:
+        try:
+            start=(datetime.date.today()-datetime.timedelta(days=days)).isoformat()
+            if sym in TO_ALPACA:
+                a=TO_ALPACA[sym].replace("/","%2F")
+                url=f"https://data.alpaca.markets/v1beta3/crypto/us/bars?symbols={a}&timeframe=1Day&start={start}&limit=10000"
+                key=TO_ALPACA[sym]
+            else:
+                url=(f"https://data.alpaca.markets/v2/stocks/bars?symbols={sym}"
+                     f"&timeframe=1Day&start={start}&adjustment=split&feed=iex&limit=10000")
+                key=sym
+            req=urllib.request.Request(url, headers={"APCA-API-KEY-ID":ALP_K,"APCA-API-SECRET-KEY":ALP_S})
+            d=json.load(urllib.request.urlopen(req, timeout=30))
+            bs=(d.get("bars") or {}).get(key,[])
+            out=[{"t":int(datetime.datetime.fromisoformat(b["t"].replace("Z","+00:00")).timestamp()),"c":b["c"]}
+                 for b in bs if b.get("c") and b["c"]>0]
+            out=G.drop_partial_bar(out)
+            if len(out)>=MA+VOL_N+2: return out
+        except Exception as e:
+            log.info(f"  alpaca bars fail {sym}: {e}; trying yahoo")
+    return yf(sym)
 
 def main(dry):
     cw,f1=leg_weights(CRYPTO, MOON_FRACTION*CRYPTO_W)

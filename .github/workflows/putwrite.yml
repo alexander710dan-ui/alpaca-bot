@@ -1,7 +1,9 @@
 name: moe-v8-bot
 on:
-  schedule:
-    - cron: '5 15 * * 1-5'      # once a trading day: 11:05am ET in summer, 10:05am ET in winter
+  schedule:                    # staggered: GH cron fires 1-2.5h late; first run that lands
+    - cron: '40 13 * * 1-5'     # near the open (9:40 ET summer) does the work, later ones
+    - cron: '10 14 * * 1-5'     # no-op via rebalance band + client-order-id dedup
+    - cron: '5 15 * * 1-5'
   workflow_dispatch: {}
 permissions:
   contents: write
