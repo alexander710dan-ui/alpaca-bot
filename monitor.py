@@ -55,7 +55,9 @@ def main():
         gen=datetime.datetime.fromisoformat(hist["generated"].replace("Z","+00:00"))
         age=(datetime.datetime.now(datetime.timezone.utc)-gen).total_seconds()/86400
         print(f"MONITOR: last bot heartbeat {age:.1f} days ago")
-        if age>3.5: problems.append(f"bot has not produced data for {age:.1f} days — cron dead?")
+        # the bot commits output every weekday incl. holidays (tracker runs even when the
+        # market is closed), so >1 day of silence on a weekday check means a missed run.
+        if age>1.2: problems.append(f"bot has not produced data for {age:.1f} days — missed run / cron dead?")
     except Exception as e:
         problems.append(f"cannot verify bot heartbeat: {e}")
     for p in problems: print(f"MONITOR ALERT: {p}")
