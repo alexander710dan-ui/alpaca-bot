@@ -110,7 +110,12 @@ def fill(con,k,s):
         for nid,ts in items:
             ev=datetime.datetime.fromisoformat(ts.replace("Z","+00:00"))
             age_days=(now-ev).total_seconds()/86400
-            before=[c for t,c in b15 if t<=ev.isoformat().replace("+00:00","Z")]
+            # NO-LEAK RULE: bars are stamped by START time but their close prints at t+15m.
+            # The "before" price must come from a bar that fully COMPLETED before the event,
+            # i.e. bar start <= event-15m — otherwise up to 15min of post-news price leaks
+            # into px_before and poisons every label (found in audit 2026-07-11, all refilled).
+            cutoff=(ev-datetime.timedelta(minutes=15)).isoformat().replace("+00:00","Z")
+            before=[c for t,c in b15 if t<=cutoff]
             px=before[-1] if before else None
             def horizon(minutes):
                 cut=(ev+datetime.timedelta(minutes=minutes)).isoformat().replace("+00:00","Z")

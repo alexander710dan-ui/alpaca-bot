@@ -46,7 +46,7 @@ for p in tc.get_all_positions():
     pos[p.symbol]={"qty":float(p.qty),"entry":float(p.avg_entry_price),"cur":float(p.current_price),
                    "mv":float(p.market_value),"pl":float(p.unrealized_intraday_pl),
                    "plpc":float(p.unrealized_intraday_plpc)*100,"ohlc":yf(p.symbol)}
-hist={"generated":datetime.datetime.utcnow().isoformat()+"Z","base":100000,"moe_start":"2026-06-30",
+hist={"generated":datetime.datetime.utcnow().isoformat()+"Z","base":100000,"moe_start":"2026-07-02",
       "eq":eq,"le":le,"today_pl":eq-le,"today_pct":(eq/le-1)*100 if le else 0.0,
       "daily":daily,"pos":pos}
 json.dump(hist, open(os.path.join(HERE,"moe_history.json"),"w"))

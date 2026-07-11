@@ -23,10 +23,13 @@ trading bots** — read-only API access, no shared code, no orders.
 | `reactions` | one row per (article, watched symbol) | event_ts, px_before, r_30m, r_2h, r_1d, r_3d, complete |
 
 - Source: Alpaca news API (Benzinga feed), watchlist of 15 liquid names in `WATCH`.
-- `px_before` = last 15-min bar close at/before the article; `r_X` = simple return from
-  `px_before` to the first bar at/after each horizon (30 min, 2 h) or the 1st/3rd daily
+- `px_before` = close of the last 15-min bar that **fully completed before** the article
+  (bar start ≤ event−15m; bars are stamped by start time but close 15 minutes later —
+  using the containing bar would leak post-news price into the "before" price).
+- `r_X` = simple return from `px_before` to the close of the first bar STARTING at/after
+  each horizon (so r_30m is measured 30–45 min after the event) or the 1st/3rd daily
   close after the article date. Off-hours news measures against the next session — the
-  first tradeable reaction.
+  first tradeable reaction. No label ever uses data from before its own window.
 - `complete=0` rows are awaiting horizon maturity; each run fills what has matured.
 - Training tip: join `news` to `reactions` on `news_id`; features = headline/summary text
   (+source, +time-of-day), labels = r_30m/r_2h/r_1d/r_3d. Beware: Benzinga headlines can
