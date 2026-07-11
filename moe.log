@@ -169,3 +169,8 @@
 2026-07-11 14:20:45    expert weights: core=0.25 trend2=0.50 tom=0.25
 2026-07-11 14:20:45    TARGET book (8 positions): BIL +36%, XLK +26%, SPY +10%, EFA +7%, DBC +6%, QQQ +6%, GLD +6%, EEM +4%
 2026-07-11 14:20:45  DRY RUN — no orders placed. (target book above is what it WOULD hold.)
+2026-07-11 12:21:14  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-07-11 12:21:14  v12 | regime BULL | VIX 15.0 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.43 [volT 0.43] = gross 0.86
+2026-07-11 12:21:14    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-07-11 12:21:14    TARGET book (8 positions): BIL +36%, XLK +26%, SPY +10%, EFA +7%, DBC +6%, QQQ +6%, GLD +6%, EEM +4%
+2026-07-11 12:21:16  market closed (next 2026-07-13 09:30:00-04:00); no trades.
