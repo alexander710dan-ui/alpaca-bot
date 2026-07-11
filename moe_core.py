@@ -131,8 +131,10 @@ def _dip_state(bars):
         if cur: sc[i]=r2[i] if r2[i] is not None else 50
     return pos,sc
 
-def expert_decisions(M, div=None):
-    """For each expert: D[t] = target book {sym:weight} DECIDED at close t (held from t+1)."""
+def expert_decisions(M, div=None, core_hyst=0.0):
+    """For each expert: D[t] = target book {sym:weight} DECIDED at close t (held from t+1).
+    core_hyst: the core expert keeps its incumbent unless a challenger's 63d momentum beats
+    it by this margin — kills rank-tie whipsaw churn (live data showed ~8x turnover on XLK)."""
     DB=M["DB"]; dl=M["dates"]; IDX=M["IDX"]; MOM=M["MOM"]; MA200=M["MA200"]; CL=M["CL"]
     D={k:{} for k in ("dip","trend","def","crash","core","trend2","tom")}
     dipst={s:_dip_state(DB[s]) for s in (div or DIV) if s in DB}
@@ -190,11 +192,17 @@ def expert_decisions(M, div=None):
         g=MOM["GLD"].get(t,0) if "GLD" in DB else -9; l=MOM["TLT"].get(t,0) if "TLT" in DB else -9
         D["def"][t]={} if (g<=0 and l<=0) else ({"GLD":1.0} if g>=l else {"TLT":1.0})
         D["crash"][t]={"SPY":-1.0} if not M["RISKON"].get(t,True) else {}
+    inc=None                                     # core incumbent (hysteresis state)
+    for t in dl:
         if M["RISKON"].get(t,True):
             cand=sorted([(x,MOM[x].get(t,-9)) for x in CORE if x in DB],key=lambda z:-z[1])
             s,mm=cand[0] if cand else (None,-9)
+            if core_hyst and inc and inc!=s:
+                mi=MOM[inc].get(t,-9)
+                if mi>0 and mm<mi+core_hyst: s,mm=inc,mi   # challenger not clearly better: hold
             D["core"][t]={s:1.0} if (s and mm>0) else {}
         else: D["core"][t]={}
+        inc=next(iter(D["core"][t]),None)
     return D
 
 def expert_series(M, D, legacy=False):

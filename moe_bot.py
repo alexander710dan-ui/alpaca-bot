@@ -31,6 +31,8 @@ PAPER  = True
 LEV    = 2.0                     # <<< deploy leverage. Set 1.0 for the unleveraged version.
 LEGACY = False                   # False = honest one-day-lag signals (what live can actually do)
 STRAT  = "v12"                   # "v12"/"v11"/"v10" fixed blends (holdout-validated) | "v8" old router
+CORE_HYST = 0.01                 # core expert switch hysteresis: performance-neutral on dev+val,
+                                 # halves switch churn (537->261 over 33y; live XLK churn motivated it)
 
 # ---- risk overlays (validated out-of-sample in research/backtest.py; see results.md) ----
 USE_VOL_TARGET = True            # scale exposure to a constant realized-vol target
@@ -156,7 +158,8 @@ if _fatal:
 
 # ---------------- strategy (shared core — identical code path to the backtest) ----------------
 M   = C.build_market(DB, {C.uday(r["t"]):r["c"] for r in VIXB})
-D   = C.expert_decisions(M, div=(C.ETF_DIV if STRAT in ("v10","v11","v12") else None))
+D   = C.expert_decisions(M, div=(C.ETF_DIV if STRAT in ("v10","v11","v12") else None),
+                         core_hyst=(CORE_HYST if STRAT=="v12" else 0.0))
 HELD,SER = C.expert_series(M, D, legacy=LEGACY)
 if STRAT in ("v10","v11","v12"):
     W = {"v10":C.V10_WEIGHTS,"v11":C.V11_WEIGHTS,"v12":C.V12_WEIGHTS}[STRAT]
@@ -260,7 +263,8 @@ def main(dry):
     prices={s:last_price(s) for s in set(list(tw)+list(pos))}
 
     actions,warnings = G.plan_orders(tw, equity, positions, prices,
-                                     rebal_band=REBAL_BAND, max_order_frac=MAX_ORDER_FRAC, max_orders=MAX_ORDERS)
+                                     rebal_band=REBAL_BAND, max_order_frac=MAX_ORDER_FRAC, max_orders=MAX_ORDERS,
+                                     band_overrides={"BIL":0.03})   # cash-parking: don't micro-churn it
     for w in warnings: log.info(f"  WARNING: {w}")
 
     # ---- execute (risk-reducing first; each order isolated; duplicate-protected per day) ----

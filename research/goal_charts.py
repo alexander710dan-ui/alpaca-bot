@@ -43,7 +43,8 @@ def build():
     burst=sig_series(qqq,burst_any,yf("UPRO"))
     vreg=sig_series(spy,vixreg,tqqq)
     M=C.build_market(DB,{C.uday(r["t"]):r["c"] for r in VIXB})
-    D=C.expert_decisions(M,div=C.ETF_DIV); HH,SS=C.expert_series(M,D,legacy=False)
+    D=C.expert_decisions(M,div=C.ETF_DIV,core_hyst=0.01)   # matches deployed moe_bot config
+    HH,SS=C.expert_series(M,D,legacy=False)
     e,x,cc,_=C.fixed_router(M,SS,C.V12_WEIGHTS)
     v12=simulate((M,D,HH,SS,e,x,cc),IRX,lev=2.0,max_gross=2.0,vol_target=0.16,cash_yield=True)
     moon=combine([trend_sleeve(["BTC-USD","ETH-USD"],fee_bps=25),

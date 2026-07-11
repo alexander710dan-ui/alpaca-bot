@@ -108,6 +108,36 @@ def test_burst_trigger_setups():
     assert not C.burst_trigger([100.0] * 100)            # not enough history -> never fires
 
 
+def test_core_hysteresis_reduces_switches():
+    db = synth_db()
+    M = C.build_market(db, {})
+    def switches(D):
+        n = 0; prev = None
+        for t in M["dates"]:
+            cur = next(iter(D["core"][t]), None)
+            if cur != prev and prev is not None: n += 1
+            prev = cur
+        return n
+    s0 = switches(C.expert_decisions(M))
+    s1 = switches(C.expert_decisions(M, core_hyst=0.05))
+    assert s1 <= s0                                # hysteresis can only reduce churn
+    # and with a huge margin the incumbent should almost never change
+    s2 = switches(C.expert_decisions(M, core_hyst=5.0))
+    assert s2 <= s1
+
+
+def test_plan_orders_band_override():
+    import guardrails as G
+    # $2k delta on BIL: passes default 1.5% band but must be suppressed by 3% override
+    actions, _ = G.plan_orders({"BIL": 0.22}, 100_000.0,
+                               positions={"BIL": (20_000.0, 200.0)}, prices={"BIL": 100.0},
+                               band_overrides={"BIL": 0.03})
+    assert actions == []
+    actions2, _ = G.plan_orders({"BIL": 0.22}, 100_000.0,
+                                positions={"BIL": (20_000.0, 200.0)}, prices={"BIL": 100.0})
+    assert actions2 == [("buy", "BIL", 2_000.0)]   # unchanged behavior without override
+
+
 def test_vixreg_on_gate():
     up = [100 + i * 0.1 for i in range(300)]
     assert C.vixreg_on(up, vix_last=20.0)            # uptrend + calm vol -> on

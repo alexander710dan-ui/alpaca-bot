@@ -64,7 +64,7 @@ def cap_gross(gross, max_gross):
 # ---------------- order planning ----------------
 
 def plan_orders(targets, equity, positions, prices, rebal_band=0.015,
-                max_order_frac=0.70, max_orders=25):
+                max_order_frac=0.70, max_orders=25, band_overrides=None):
     """Turn target weights into a bounded list of order actions.
 
     targets:   {sym: weight}  (negative weight = short target)
@@ -103,7 +103,8 @@ def plan_orders(targets, equity, positions, prices, rebal_band=0.015,
             warnings.append(f"{s}: target flips sign; closing now, opening next run")
             continue
         delta = wnot - mv
-        if abs(delta) < rebal_band * equity:            # inside the rebalance band
+        band = (band_overrides or {}).get(s, rebal_band)
+        if abs(delta) < band * equity:                  # inside the (per-symbol) rebalance band
             continue
         if wnot < 0:                                    # short book: whole shares only
             px = prices.get(s)
