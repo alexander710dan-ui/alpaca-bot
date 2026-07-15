@@ -17,7 +17,8 @@ dashboard if that's the intent.
 |---|---|---|
 | Data gates: SPY/VIX fresh (≤6 days), ≥20 symbols fetched | `STALE_DAYS`, `MIN_SYMBOLS` | exits non-zero → CI fails → GitHub emails you; no orders |
 | Daily loss vs yesterday's close | 4% (`MAX_DAILY_LOSS`) | no orders today, positions kept |
-| Drawdown from high-water mark (Alpaca portfolio history) | 25% (`MAX_DRAWDOWN`) | **flattens everything** and halts (fail-closed: if the history endpoint is unreadable, no orders) |
+| Weekly loss vs 5 sessions ago | 8% (`MAX_WEEKLY_LOSS`) | no orders today, positions kept |
+| Drawdown from high-water mark (Alpaca portfolio history) | 25% (`MAX_DRAWDOWN`) | **flattens everything, writes the KILL file itself** (committed by CI) — every bot stays halted until a human deletes it; fail-closed if the history endpoint is unreadable |
 | Gross exposure cap | 2.0× (`MAX_GROSS`) | book scaled down (router can request up to ~4.2×) |
 | Per-order size | 70% of equity (`MAX_ORDER_FRAC`) | order clipped, warning logged |
 | Orders per run | 25 (`MAX_ORDERS`) | excess dropped, warning logged |

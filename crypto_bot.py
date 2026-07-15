@@ -269,5 +269,64 @@ def main(dry):
                 log.info(f"    order failed {s}: {e}")
     log.info("done.")
 
+def onclose_run(dry):
+    """Entry-at-the-close for the BURST leg (market-on-close order).
+
+    Why: the burst edge is measured close-to-close, but next-morning entry misses the
+    overnight gap — on 2026-07-06 the predicted bounce arrived almost entirely IN the gap.
+    This mode runs ~15:20-15:50 ET: evaluates the trigger using today's PROVISIONAL close
+    (latest trade) appended to completed bars, and if it fires, buys UPRO with a CLS order
+    so the fill IS today's closing auction print — exactly the backtest convention.
+    The regular morning runs remain the fallback (they no-op if this already filled)."""
+    K,S=keys()
+    if not K or not S: log.info("ONCLOSE: no keys"); sys.exit(1)
+    import urllib.request as _u
+    def dapi(p):
+        req=_u.Request("https://data.alpaca.markets"+p, headers={"APCA-API-KEY-ID":K,"APCA-API-SECRET-KEY":S})
+        return json.load(_u.urlopen(req,timeout=30))
+    from alpaca.trading.client import TradingClient
+    from alpaca.trading.requests import MarketOrderRequest
+    from alpaca.trading.enums import OrderSide, TimeInForce
+    trade=TradingClient(K,S,paper=PAPER)
+    clock=trade.get_clock()
+    now=datetime.datetime.fromisoformat(str(clock.timestamp)); mins=now.hour*60+now.minute
+    if not clock.is_open or not (15*60<=mins<=15*60+50):
+        log.info(f"ONCLOSE: outside the 15:00-15:50 ET window ({now:%H:%M} ET) — skip (morning runs cover it)"); return
+    if os.path.exists(os.path.join(HERE,"KILL")):
+        log.info("ONCLOSE: KILL file present — halted."); return
+    qqq=bars("QQQ"); vix=yf("^VIX","6mo")
+    if len(qqq)<205:
+        log.info("ONCLOSE: no QQQ history — skip"); return
+    prov=float(dapi("/v2/stocks/QQQ/snapshot?feed=iex")["latestTrade"]["p"])
+    closes=[r["c"] for r in qqq]+[prov]              # today's provisional close appended
+    vlast=v10=None
+    if vix and len(vix)>=10:
+        vlast=vix[-1]["c"]; v10=sum(r["c"] for r in vix[-10:])/10
+    on=C.burst_trigger(closes, vlast, v10)
+    log.info(f"ONCLOSE: burst on provisional close {prov:.2f} -> {'FIRED' if on else 'quiet'}")
+    if not on: return
+    acct=trade.get_account(); equity=float(acct.equity); le=float(acct.last_equity or equity)
+    if G.daily_loss_breached(equity, le, 0.05):
+        log.info("ONCLOSE: account down >5% today — stand down"); return
+    pos={p.symbol:float(p.market_value) for p in trade.get_all_positions()}
+    if pos.get(BURST_SYM,0.0) >= 0.5*BURST_FRACTION*equity:
+        log.info("ONCLOSE: burst position already on — nothing to do"); return
+    px=float(dapi(f"/v2/stocks/{BURST_SYM}/snapshot?feed=iex")["latestTrade"]["p"])
+    qty=int(BURST_FRACTION*equity/px)                # CLS orders require whole shares
+    if qty<1: log.info("ONCLOSE: qty<1 — skip"); return
+    oid=f"burst-cls-{datetime.datetime.now(datetime.timezone.utc):%y%m%d}"
+    log.info(f"ONCLOSE: BUY {qty} {BURST_SYM} at the close (~${qty*px:,.0f}, CLS)")
+    if dry: log.info("ONCLOSE: dry run — no order."); return
+    try:
+        trade.submit_order(MarketOrderRequest(symbol=BURST_SYM, qty=qty, side=OrderSide.BUY,
+                           time_in_force=TimeInForce.CLS, client_order_id=oid))
+    except Exception as e:
+        msg=str(e)
+        if "client_order_id" in msg or "duplicate" in msg.lower():
+            log.info("ONCLOSE: already submitted today — skipped")
+        else: log.info(f"ONCLOSE: order failed: {e}")
+
 if __name__=="__main__":
-    main("--test" in sys.argv or "--dryrun" in sys.argv)
+    dry="--test" in sys.argv or "--dryrun" in sys.argv
+    if "--onclose" in sys.argv: onclose_run(dry)
+    else: main(dry)

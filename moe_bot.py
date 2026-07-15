@@ -43,6 +43,7 @@ BIL_IDLE_CASH  = True            # park idle cash (when overlay cuts gross <1) i
 # ---------------- safety config (see SAFETY.md) ----------------
 MAX_GROSS       = 2.0            # hard cap on gross exposure
 MAX_DAILY_LOSS  = 0.04           # halt new orders if equity is down >4% vs yesterday's close
+MAX_WEEKLY_LOSS = 0.08           # halt new orders if equity is down >8% vs 5 sessions ago
 MAX_DRAWDOWN    = 0.25           # flatten + halt beyond this drawdown (v10 2x volT16 worst backtest DD ~27%)
 MAX_ORDER_FRAC  = 0.70           # no single order may exceed 70% of equity
 MAX_ORDERS      = 25             # max order actions per run
@@ -236,12 +237,20 @@ def main(dry):
     hist=portfolio_history_equities(K,S)
     if hist is None:
         log.info("  cannot verify drawdown (fail-closed); no orders this run."); return
+    if len(hist)>=6 and G.daily_loss_breached(equity, hist[-6], MAX_WEEKLY_LOSS):
+        log.info(f"WEEKLY LOSS BREAKER: equity down {(equity/hist[-6]-1)*100:.1f}% over 5 sessions "
+                 f"(limit {MAX_WEEKLY_LOSS:.0%}). No orders today."); return
     breached,dd = G.drawdown_breached(hist, equity, MAX_DRAWDOWN)
     if breached:
         log.info(f"MAX DRAWDOWN BREAKER: {dd:.1%} >= {MAX_DRAWDOWN:.0%} — flattening everything and halting.")
         try: trade.close_all_positions(cancel_orders=True)
         except Exception as e: log.info(f"  flatten failed: {e}")
-        log.info("  add a KILL file / review before resuming."); return
+        # cooldown: write the KILL file ourselves (the workflow commits it), so trading stays
+        # halted across every bot until a human reviews and deletes the file. No auto-resume.
+        with open(os.path.join(HERE,"KILL"),"w") as f:
+            f.write(f"auto-halt: max drawdown {dd:.1%} on {datetime.date.today()} — review research/, "
+                    f"then delete this file to resume.\n")
+        log.info("  KILL file written — all bots halted until it is deleted."); return
 
     # ---- clean slate: cancel stale unfilled orders so rebalance math is correct ----
     try:

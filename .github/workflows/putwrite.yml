@@ -46,5 +46,6 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git pull --rebase --autostash -q || true
           git add -f moe.log shadow_state.json moe_history.json
-          git diff --cached --quiet || git commit -q -m "moe v8 run $(date -u '+%F %H:%M')Z"
+          [ -f KILL ] && git add -f KILL || true
+          git diff --cached --quiet || git commit -q -m "moe run $(date -u '+%F %H:%M')Z"
           git push -q || true
