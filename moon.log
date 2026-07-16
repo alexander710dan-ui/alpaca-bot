@@ -233,3 +233,6 @@
 2026-07-16 16:43:08  done.
 2026-07-16 19:37:33  ONCLOSE: burst on provisional close 703.81 -> FIRED
 2026-07-16 19:37:34  ONCLOSE: BUY 69 UPRO at the close (~$9,832, CLS)
+2026-07-16 19:45:55  ONCLOSE: burst on provisional close 703.61 -> FIRED
+2026-07-16 19:45:55  ONCLOSE: BUY 69 UPRO at the close (~$9,809, CLS)
+2026-07-16 19:45:56  ONCLOSE: already submitted today — skipped
