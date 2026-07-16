@@ -1,8 +1,9 @@
 name: burst-onclose
 on:
-  schedule:                     # two slots targeting 15:20-15:50 ET; GH cron drift means one
-    - cron: '55 18 * * 1-5'     # usually lands in the window — outside it the run no-ops and
-    - cron: '15 19 * * 1-5'     # the next-morning bot remains the fallback
+  schedule:                     # three slots aimed EARLY (observed GH drift ~+60min): targets
+    - cron: '25 18 * * 1-5'     # 14:25/14:45/15:05 ET so drifted runs land inside the
+    - cron: '45 18 * * 1-5'     # 15:00-15:50 ET window; outside it runs no-op and the
+    - cron: '5 19 * * 1-5'      # next-morning bot remains the fallback
   workflow_dispatch: {}
 permissions:
   contents: write
