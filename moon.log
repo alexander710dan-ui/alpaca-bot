@@ -256,3 +256,4 @@
 2026-07-17 19:37:34  ONCLOSE: burst position already on — nothing to do
 2026-07-17 19:46:45  ONCLOSE: burst on provisional close 695.87 -> FIRED
 2026-07-17 19:46:45  ONCLOSE: burst position already on — nothing to do
+2026-07-17 20:06:28  ONCLOSE: outside the 15:00-15:50 ET window (16:06 ET) — skip (morning runs cover it)
