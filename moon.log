@@ -237,3 +237,8 @@
 2026-07-16 19:45:55  ONCLOSE: BUY 69 UPRO at the close (~$9,809, CLS)
 2026-07-16 19:45:56  ONCLOSE: already submitted today — skipped
 2026-07-16 20:03:22  ONCLOSE: outside the 15:00-15:50 ET window (16:03 ET) — skip (morning runs cover it)
+2026-07-17 15:03:11    VRP: VIX3M/VIX = 1.166 (contango — sell vol)
+2026-07-17 15:03:11    BURST: trigger FIRED — deploy (VIX 16.7 vs 10d 16.2)
+2026-07-17 15:03:12    VIXREG: risk-on — hold TQQQ (VIX 16.7)
+2026-07-17 15:03:12  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-07-17 15:03:13  done.
