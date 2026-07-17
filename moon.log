@@ -252,3 +252,5 @@
 2026-07-17 16:35:43    VIXREG: risk-on — hold TQQQ (VIX 16.7)
 2026-07-17 16:35:43  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
 2026-07-17 16:35:43  done.
+2026-07-17 19:37:34  ONCLOSE: burst on provisional close 696.74 -> FIRED
+2026-07-17 19:37:34  ONCLOSE: burst position already on — nothing to do
