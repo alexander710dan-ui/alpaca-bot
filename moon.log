@@ -257,3 +257,8 @@
 2026-07-17 19:46:45  ONCLOSE: burst on provisional close 695.87 -> FIRED
 2026-07-17 19:46:45  ONCLOSE: burst position already on — nothing to do
 2026-07-17 20:06:28  ONCLOSE: outside the 15:00-15:50 ET window (16:06 ET) — skip (morning runs cover it)
+2026-07-18 14:42:00    VRP: VIX3M/VIX = 1.094 (contango — sell vol)
+2026-07-18 14:42:00    BURST: trigger FIRED — deploy (VIX 18.8 vs 10d 16.4)
+2026-07-18 14:42:01    VIXREG: risk-on — hold TQQQ (VIX 18.8)
+2026-07-18 14:42:01  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-07-18 14:42:02  done.
