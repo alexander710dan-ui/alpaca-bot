@@ -330,3 +330,10 @@
 2026-07-22 15:23:34  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-07-22 15:23:35    BUY TQQQ $14,301
 2026-07-22 15:23:35  done.
+2026-07-22 15:53:50    VRP: VIX3M/VIX = 1.149 (contango — sell vol)
+2026-07-22 15:53:50    BURST: trigger quiet — cash (VIX 17.0 vs 10d 16.8)
+2026-07-22 15:53:50    VIXREG: risk-on — hold TQQQ (VIX 17.0)
+2026-07-22 15:53:50  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-07-22 15:53:51    BUY TQQQ $14,302
+2026-07-22 15:53:51      TQQQ: already sent today — skipped
+2026-07-22 15:53:51  done.
