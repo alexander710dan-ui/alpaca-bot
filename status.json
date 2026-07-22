@@ -1,63 +1,69 @@
 {
- "time": "2026-07-22 17:02:10",
+ "time": "2026-07-22 17:32:16",
  "tag": "after-check",
  "paper": true,
- "equity": 99717.72,
- "cash": 15168.24,
+ "equity": 99878.31,
+ "cash": -10914.55,
  "positions": [
   {
    "sym": "BIL",
-   "qty": 260.454448207,
-   "value": 23851.116095,
-   "unrealized_pl": 28.830224
+   "qty": 341.041475942,
+   "value": 31230.873159,
+   "unrealized_pl": 28.427171
   },
   {
    "sym": "DBC",
    "qty": 176.484488485,
-   "value": 5276.886206,
-   "unrealized_pl": 594.752726
+   "value": 5278.651051,
+   "unrealized_pl": 596.517571
   },
   {
    "sym": "EEM",
    "qty": 57.148731274,
-   "value": 3713.524558,
-   "unrealized_pl": -25.095437
+   "value": 3720.382406,
+   "unrealized_pl": -18.237589
   },
   {
    "sym": "EFA",
-   "qty": 50.792751674,
-   "value": 5301.493456,
-   "unrealized_pl": 4.72078
+   "qty": 68.727094624,
+   "value": 7173.390501,
+   "unrealized_pl": 5.527789
   },
   {
    "sym": "GLD",
    "qty": 13.891289972,
-   "value": 5291.609089,
-   "unrealized_pl": 39.729089
+   "value": 5298.693647,
+   "unrealized_pl": 46.813647
   },
   {
    "sym": "QQQ",
    "qty": 7.35745063,
-   "value": 5204.07198,
-   "unrealized_pl": -37.918019
+   "value": 5216.395709,
+   "unrealized_pl": -25.59429
   },
   {
    "sym": "SPY",
    "qty": 11.764000237,
-   "value": 8798.649874,
-   "unrealized_pl": 46.174089
+   "value": 8814.765378,
+   "unrealized_pl": 62.289593
   },
   {
    "sym": "SVXY",
    "qty": 68.982668977,
-   "value": 3983.749133,
-   "unrealized_pl": 3.449133
+   "value": 3992.371967,
+   "unrealized_pl": 12.071967
+  },
+  {
+   "sym": "TQQQ",
+   "qty": 200.466638631,
+   "value": 14310.310999,
+   "unrealized_pl": 9.020999
   },
   {
    "sym": "XLK",
-   "qty": 128.233886388,
-   "value": 23128.263749,
-   "unrealized_pl": -9.191548
+   "qty": 142.207156394,
+   "value": 25755.138095,
+   "unrealized_pl": 87.4328
   }
  ]
 }
