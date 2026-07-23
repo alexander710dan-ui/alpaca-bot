@@ -347,3 +347,10 @@
 2026-07-22 19:50:22  ONCLOSE: burst on provisional close 706.50 -> quiet
 2026-07-22 19:56:33  ONCLOSE: outside the 15:00-15:50 ET window (15:56 ET) — skip (morning runs cover it)
 2026-07-22 20:12:31  ONCLOSE: outside the 15:00-15:50 ET window (16:12 ET) — skip (morning runs cover it)
+2026-07-23 15:45:32    VRP: VIX3M/VIX = 1.174 (contango — sell vol)
+2026-07-23 15:45:33    BURST: trigger quiet — cash (VIX 16.6 vs 10d 16.8)
+2026-07-23 15:45:33    VIXREG: risk-on — hold TQQQ (VIX 16.6)
+2026-07-23 15:45:33  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-07-23 15:45:34    BUY TQQQ $14,138
+2026-07-23 15:45:35      order failed TQQQ: {"buying_power":"3396.76","code":40310000,"cost_basis":"14138.31","message":"insufficient buying power"}
+2026-07-23 15:45:35  done.
