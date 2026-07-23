@@ -369,3 +369,4 @@
 2026-07-23 16:48:26      order failed TQQQ: {"buying_power":"3396.76","code":40310000,"cost_basis":"14179.54","message":"insufficient buying power"}
 2026-07-23 16:48:26  done.
 2026-07-23 19:51:41  ONCLOSE: outside the 15:00-15:50 ET window (15:51 ET) — skip (morning runs cover it)
+2026-07-23 20:00:14  ONCLOSE: outside the 15:00-15:50 ET window (16:00 ET) — skip (morning runs cover it)
