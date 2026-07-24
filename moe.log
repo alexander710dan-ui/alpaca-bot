@@ -396,3 +396,15 @@
 2026-07-24 15:16:20    BUY SPY $1,444 -> target $10,177
 2026-07-24 15:16:20    BUY XLK $1,430 -> target $26,721
 2026-07-24 15:16:20  done.
+2026-07-24 15:38:14  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-07-24 15:38:14  v12 | regime BULL | VIX 18.7 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.47 [volT 0.47] = gross 0.94
+2026-07-24 15:38:14    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-07-24 15:38:14    TARGET book (8 positions): BIL +29%, XLK +28%, SPY +11%, EFA +8%, DBC +7%, QQQ +6%, GLD +6%, EEM +4%
+2026-07-24 15:38:16    moon sleeve holds $28,045 (ignored); core sizes on $70,961
+2026-07-24 15:38:16  equity $70,961 | current 8 core positions
+2026-07-24 15:38:16    SELL BIL $7,082 -> target $20,877
+2026-07-24 15:38:16      BIL: same order already sent today (duplicate protection) — skipped
+2026-07-24 15:38:16    SELL EFA $1,588 -> target $5,556
+2026-07-24 15:38:16    SELL SPY $2,582 -> target $7,600
+2026-07-24 15:38:17    SELL XLK $6,756 -> target $19,954
+2026-07-24 15:38:17  done.
