@@ -378,3 +378,8 @@
 2026-07-24 15:18:06    BUY TQQQ $14,150
 2026-07-24 15:18:06    BUY UPRO $9,893
 2026-07-24 15:18:06  done.
+2026-07-24 15:48:16    VRP: VIX3M/VIX = 1.102 (contango — sell vol)
+2026-07-24 15:48:16    BURST: trigger FIRED — deploy (VIX 18.7 vs 10d 17.1)
+2026-07-24 15:48:16    VIXREG: risk-on — hold TQQQ (VIX 18.7)
+2026-07-24 15:48:16  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-07-24 15:48:18  done.
