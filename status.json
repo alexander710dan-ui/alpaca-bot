@@ -1,63 +1,75 @@
 {
- "time": "2026-07-24 17:05:46",
+ "time": "2026-07-24 17:35:50",
  "tag": "after-check",
  "paper": true,
- "equity": 98740.7,
- "cash": 3396.68,
+ "equity": 98911.89,
+ "cash": -20236.0,
  "positions": [
   {
    "sym": "BIL",
-   "qty": 341.041475942,
-   "value": 31241.104404,
-   "unrealized_pl": 38.658416
+   "qty": 305.189838388,
+   "value": 27958.441095,
+   "unrealized_pl": 36.120438
   },
   {
    "sym": "DBC",
    "qty": 176.484488485,
-   "value": 5316.612864,
-   "unrealized_pl": 634.479384
+   "value": 5283.063163,
+   "unrealized_pl": 600.929683
   },
   {
    "sym": "EEM",
    "qty": 57.148731274,
-   "value": 3637.516746,
-   "unrealized_pl": -101.103249
+   "value": 3649.517979,
+   "unrealized_pl": -89.102016
   },
   {
    "sym": "EFA",
    "qty": 68.727094624,
-   "value": 7110.50521,
-   "unrealized_pl": -57.357502
+   "value": 7136.621506,
+   "unrealized_pl": -31.241206
   },
   {
    "sym": "GLD",
    "qty": 13.891289972,
-   "value": 5179.853661,
-   "unrealized_pl": -72.026339
+   "value": 5192.703104,
+   "unrealized_pl": -59.176896
   },
   {
    "sym": "QQQ",
    "qty": 7.35745063,
-   "value": 5057.989797,
-   "unrealized_pl": -184.000202
+   "value": 5074.580849,
+   "unrealized_pl": -167.40915
   },
   {
    "sym": "SPY",
-   "qty": 11.764000237,
-   "value": 8710.771615,
-   "unrealized_pl": -41.70417
+   "qty": 13.70847611,
+   "value": 10176.213071,
+   "unrealized_pl": -19.872711
   },
   {
    "sym": "SVXY",
    "qty": 68.982668977,
-   "value": 3927.528258,
-   "unrealized_pl": -52.771742
+   "value": 3943.739185,
+   "unrealized_pl": -36.560815
+  },
+  {
+   "sym": "TQQQ",
+   "qty": 215.834960341,
+   "value": 14150.14,
+   "unrealized_pl": 0.0
+  },
+  {
+   "sym": "UPRO",
+   "qty": 71.606977417,
+   "value": 9898.948558,
+   "unrealized_pl": 5.728558
   },
   {
    "sym": "XLK",
-   "qty": 142.207156394,
-   "value": 25162.134252,
-   "unrealized_pl": -505.571043
+   "qty": 150.2447098,
+   "value": 26688.719025,
+   "unrealized_pl": -408.706327
   }
  ]
 }
