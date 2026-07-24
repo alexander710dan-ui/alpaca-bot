@@ -1,75 +1,75 @@
 {
- "time": "2026-07-24 20:36:21",
+ "time": "2026-07-24 21:06:27",
  "tag": "after-check",
  "paper": true,
- "equity": 98153.96,
+ "equity": 98096.7,
  "cash": -9310.32,
  "positions": [
   {
    "sym": "BIL",
    "qty": 305.189838388,
-   "value": 27958.441095,
-   "unrealized_pl": 36.120438
+   "value": 27956.701513,
+   "unrealized_pl": 34.380856
   },
   {
    "sym": "DBC",
    "qty": 176.484488485,
-   "value": 5298.946767,
-   "unrealized_pl": 616.813287
+   "value": 5300.711612,
+   "unrealized_pl": 618.578132
   },
   {
    "sym": "EEM",
    "qty": 57.148731274,
-   "value": 3628.372949,
-   "unrealized_pl": -110.247046
+   "value": 3626.658487,
+   "unrealized_pl": -111.961508
   },
   {
    "sym": "EFA",
    "qty": 53.450107901,
-   "value": 5528.34466,
-   "unrealized_pl": -46.211307
+   "value": 5529.948163,
+   "unrealized_pl": -44.607804
   },
   {
    "sym": "GLD",
    "qty": 13.891289972,
-   "value": 5169.087911,
-   "unrealized_pl": -82.792089
+   "value": 5167.143131,
+   "unrealized_pl": -84.736869
   },
   {
    "sym": "QQQ",
    "qty": 7.35745063,
-   "value": 5039.706533,
-   "unrealized_pl": -202.283466
+   "value": 5037.168212,
+   "unrealized_pl": -204.821787
   },
   {
    "sym": "SPY",
    "qty": 10.232395916,
-   "value": 7556.77787,
-   "unrealized_pl": -53.870147
+   "value": 7556.52206,
+   "unrealized_pl": -54.125957
   },
   {
    "sym": "SVXY",
    "qty": 68.982668977,
-   "value": 3905.108891,
-   "unrealized_pl": -75.191109
+   "value": 3906.488544,
+   "unrealized_pl": -73.811456
   },
   {
    "sym": "TQQQ",
    "qty": 215.834960341,
-   "value": 13857.683629,
-   "unrealized_pl": -292.456371
+   "value": 13837.179307,
+   "unrealized_pl": -312.960693
   },
   {
    "sym": "UPRO",
    "qty": 71.606977417,
-   "value": 9747.857836,
-   "unrealized_pl": -145.362164
+   "value": 9747.141766,
+   "unrealized_pl": -146.078234
   },
   {
    "sym": "XLK",
    "qty": 112.237565336,
-   "value": 19774.014261,
-   "unrealized_pl": -468.622252
+   "value": 19741.465367,
+   "unrealized_pl": -501.171146
   }
  ]
 }
