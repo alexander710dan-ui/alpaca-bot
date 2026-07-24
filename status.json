@@ -1,75 +1,75 @@
 {
- "time": "2026-07-24 19:36:09",
+ "time": "2026-07-24 20:06:15",
  "tag": "after-check",
  "paper": true,
- "equity": 98990.71,
+ "equity": 98702.8,
  "cash": -9310.32,
  "positions": [
   {
    "sym": "BIL",
    "qty": 305.189838388,
-   "value": 27956.762551,
-   "unrealized_pl": 34.441894
+   "value": 27958.441095,
+   "unrealized_pl": 36.120438
   },
   {
    "sym": "DBC",
    "qty": 176.484488485,
-   "value": 5295.417077,
-   "unrealized_pl": 613.283597
+   "value": 5292.76981,
+   "unrealized_pl": 610.63633
   },
   {
    "sym": "EEM",
    "qty": 57.148731274,
-   "value": 3648.660748,
-   "unrealized_pl": -89.959247
+   "value": 3641.8029,
+   "unrealized_pl": -96.817095
   },
   {
    "sym": "EFA",
    "qty": 53.450107901,
-   "value": 5548.388451,
-   "unrealized_pl": -26.167516
+   "value": 5541.439937,
+   "unrealized_pl": -33.11603
   },
   {
    "sym": "GLD",
    "qty": 13.891289972,
-   "value": 5184.854526,
-   "unrealized_pl": -67.025474
+   "value": 5179.402194,
+   "unrealized_pl": -72.477806
   },
   {
    "sym": "QQQ",
    "qty": 7.35745063,
-   "value": 5078.112425,
-   "unrealized_pl": -163.877574
+   "value": 5064.133269,
+   "unrealized_pl": -177.85673
   },
   {
    "sym": "SPY",
    "qty": 10.232395916,
-   "value": 7592.233122,
-   "unrealized_pl": -18.414895
+   "value": 7580.465866,
+   "unrealized_pl": -30.182151
   },
   {
    "sym": "SVXY",
    "qty": 68.982668977,
-   "value": 3938.910399,
-   "unrealized_pl": -41.389601
+   "value": 3930.632478,
+   "unrealized_pl": -49.667522
   },
   {
    "sym": "TQQQ",
    "qty": 215.834960341,
-   "value": 14179.27772,
-   "unrealized_pl": 29.13772
+   "value": 14064.885191,
+   "unrealized_pl": -85.254809
   },
   {
    "sym": "UPRO",
    "qty": 71.606977417,
-   "value": 9888.694439,
-   "unrealized_pl": -4.525561
+   "value": 9845.959395,
+   "unrealized_pl": -47.260605
   },
   {
    "sym": "XLK",
    "qty": 112.237565336,
-   "value": 19989.510386,
-   "unrealized_pl": -253.126127
+   "value": 19913.188842,
+   "unrealized_pl": -329.447671
   }
  ]
 }
