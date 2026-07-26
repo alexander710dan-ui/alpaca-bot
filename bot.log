@@ -73,3 +73,4 @@
 2026-07-22 00:46:16  === bot started (loop every 15 min, PAPER=True) ===
 2026-07-22 00:46:17  market closed (next open 2026-07-22 09:30:00-04:00); waiting.
 2026-07-22 01:01:17  market closed (next open 2026-07-22 09:30:00-04:00); waiting.
+2026-07-27 00:19:26  [sync] RETIRED RSI2 BOT KILLED on this host (launchd unloaded, process terminated)
