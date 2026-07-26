@@ -20,6 +20,14 @@ Logs are written to bot.log next to this script.
 """
 import os, sys, time, json, datetime, logging, logging.handlers
 
+# RETIRED (2026-07-26): this bot is superseded by moe_bot.py (v12) and must never trade —
+# a resurrected launchd copy traded the shared account on 2026-07-22. Hard-exit unless
+# explicitly overridden for offline research.
+if not os.environ.get("ALLOW_LEGACY_RSI2"):
+    print("RETIRED: alpaca_bot.py must not run (superseded by moe_bot v12; see SAFETY.md). "
+          "Set ALLOW_LEGACY_RSI2=1 only for offline research.")
+    sys.exit(0)
+
 # ----------------- CONFIG -----------------
 PAPER         = True        # <<< fake money. Do NOT change until you've watched it work for weeks.
 UNIVERSE      = ["TQQQ","SOXL","SPXL","TECL","UPRO","TNA","FAS","LABU","UDOW","DPST","NAIL","RETL","CURE","FNGU"]

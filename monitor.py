@@ -45,6 +45,16 @@ def main():
         if dd>=WARN_DRAWDOWN: problems.append(f"drawdown {dd:.1%} beyond {WARN_DRAWDOWN:.0%}")
         orders=api("/v2/orders?status=open&limit=100",k,s)
         if len(orders)>MAX_OPEN_ORDERS: problems.append(f"{len(orders)} open orders (runaway?)")
+        # foreign-actor tripwire: our bots tag orders (moe9-/moon-/burst-); closes are UUIDs
+        # but rare. A flood of untagged fills = something else trading this account
+        # (e.g. the resurrected RSI2 zombie of 2026-07-22).
+        import datetime as _dt
+        since=(_dt.datetime.now(_dt.timezone.utc)-_dt.timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        recent=api(f"/v2/orders?status=closed&limit=100&after={since}",k,s)
+        untagged=[o for o in recent if o.get("filled_at") and
+                  not any((o.get("client_order_id") or "").startswith(p) for p in ("moe9-","moon-","burst-"))]
+        if untagged: print(f"MONITOR: {len(untagged)} untagged fill(s) in 24h (our closes are untagged; floods are foreign)")
+        if len(untagged)>5: problems.append(f"{len(untagged)} untagged fills in 24h — foreign actor trading this account?")
         print(f"MONITOR: equity ${eq:,.0f} | day {(eq/last-1)*100:+.2f}% | dd {dd:.1%} | open orders {len(orders)}")
     except Exception as e:
         problems.append(f"cannot read account: {e}")
