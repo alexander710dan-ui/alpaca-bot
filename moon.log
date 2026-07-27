@@ -437,3 +437,5 @@
 2026-07-27 17:11:55    FROZEN this run (data outage — positions untouched): ['SVXY']
 2026-07-27 17:11:55  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, UPRO 10.0%
 2026-07-27 17:11:56  done.
+2026-07-27 19:47:41  ONCLOSE: burst on provisional close 681.48 -> FIRED
+2026-07-27 19:47:41  ONCLOSE: burst position already on — nothing to do
