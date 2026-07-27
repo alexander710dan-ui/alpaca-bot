@@ -431,3 +431,9 @@
 2026-07-27 16:35:44    VIXREG: risk-on — hold TQQQ (VIX 18.6)
 2026-07-27 16:35:44  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
 2026-07-27 16:35:45  done.
+2026-07-27 17:11:54    VRP: VIX data missing/stale — FROZEN
+2026-07-27 17:11:55    BURST: trigger FIRED — deploy
+2026-07-27 17:11:55    VIXREG: risk-on — hold TQQQ (VIX 18.7)
+2026-07-27 17:11:55    FROZEN this run (data outage — positions untouched): ['SVXY']
+2026-07-27 17:11:55  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, UPRO 10.0%
+2026-07-27 17:11:56  done.
