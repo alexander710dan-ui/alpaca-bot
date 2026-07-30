@@ -500,3 +500,4 @@
 2026-07-30 16:51:04  moon sleeve targets: SVXY 4.0%, UPRO 10.0%, TQQQ 10.0%
 2026-07-30 16:51:05  done.
 2026-07-30 19:45:13  ONCLOSE: burst on provisional close 683.68 -> quiet
+2026-07-30 19:57:25  ONCLOSE: outside the 15:00-15:50 ET window (15:57 ET) — skip (morning runs cover it)
