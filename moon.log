@@ -489,3 +489,8 @@
 2026-07-30 15:43:39  moon sleeve targets: SVXY 4.0%, UPRO 10.0%, TQQQ 10.0%
 2026-07-30 15:43:40    SELL TQQQ $3,740
 2026-07-30 15:43:40  done.
+2026-07-30 16:01:45    VRP: VIX3M/VIX = 1.041 (contango — sell vol)
+2026-07-30 16:01:46    BURST: trigger FIRED — deploy (VIX 20.7 vs 10d 18.3)
+2026-07-30 16:01:46    VIXREG: risk-on — hold TQQQ (VIX 20.7)
+2026-07-30 16:01:46  moon sleeve targets: SVXY 4.0%, UPRO 10.0%, TQQQ 10.0%
+2026-07-30 16:01:47  done.
