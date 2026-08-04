@@ -578,3 +578,8 @@
 2026-08-04 16:02:34    VIXREG: risk-on — hold TQQQ (VIX 15.9)
 2026-08-04 16:02:34  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-08-04 16:02:35  done.
+2026-08-04 16:24:12    VRP: VIX3M/VIX = 1.194 (contango — sell vol)
+2026-08-04 16:24:13    BURST: trigger quiet — cash (VIX 15.9 vs 10d 17.7)
+2026-08-04 16:24:13    VIXREG: risk-on — hold TQQQ (VIX 15.9)
+2026-08-04 16:24:13  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-08-04 16:24:15  done.
