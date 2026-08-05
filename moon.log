@@ -607,3 +607,4 @@
 2026-08-05 16:54:13  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-08-05 16:54:14  done.
 2026-08-05 19:48:58  ONCLOSE: burst on provisional close 719.60 -> quiet
+2026-08-05 20:00:34  ONCLOSE: outside the 15:00-15:50 ET window (16:00 ET) — skip (morning runs cover it)
