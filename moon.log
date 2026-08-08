@@ -639,3 +639,9 @@
 2026-08-07 19:25:38  ONCLOSE: burst on provisional close 722.13 -> quiet
 2026-08-07 19:38:10  ONCLOSE: burst on provisional close 722.00 -> quiet
 2026-08-07 19:53:01  ONCLOSE: outside the 15:00-15:50 ET window (15:53 ET) — skip (morning runs cover it)
+2026-08-08 14:19:09    VRP: VIX3M/VIX = 1.256 (contango — sell vol)
+2026-08-08 14:19:09    BURST: trigger quiet — cash (VIX 14.9 vs 10d 16.9)
+2026-08-08 14:19:09    VIXREG: risk-on — hold TQQQ (VIX 14.9)
+2026-08-08 14:19:09  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-08-08 14:19:10    skip close UPRO (stock market closed; crypto leg still trades)
+2026-08-08 14:19:10  done.
