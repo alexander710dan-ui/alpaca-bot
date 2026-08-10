@@ -694,3 +694,4 @@
 2026-08-10 19:09:33  ONCLOSE: burst on provisional close 721.90 -> quiet
 2026-08-10 19:26:13  ONCLOSE: burst on provisional close 722.01 -> quiet
 2026-08-10 19:41:21  ONCLOSE: burst on provisional close 721.69 -> quiet
+2026-08-10 19:55:23  ONCLOSE: outside the 15:00-15:50 ET window (15:55 ET) — skip (morning runs cover it)
