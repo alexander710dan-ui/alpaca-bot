@@ -710,3 +710,5 @@
 2026-08-11 16:11:53    VIXREG: risk-on — hold TQQQ (VIX 15.5)
 2026-08-11 16:11:53  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-08-11 16:11:55  done.
+2026-08-11 19:14:56  ONCLOSE: burst on provisional close 717.62 -> FIRED
+2026-08-11 19:14:56  ONCLOSE: BUY 67 UPRO at the close (~$10,254, CLS)
