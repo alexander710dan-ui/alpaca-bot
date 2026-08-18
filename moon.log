@@ -845,3 +845,8 @@
 2026-08-18 14:56:01    FROZEN this run (data outage — positions untouched): ['SVXY']
 2026-08-18 14:56:01  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, UPRO 10.0%
 2026-08-18 14:56:01  done.
+2026-08-18 15:47:47    VRP: VIX3M/VIX = 1.253 (contango — sell vol)
+2026-08-18 15:47:48    BURST: trigger FIRED — deploy (VIX 15.2 vs 10d 15.2)
+2026-08-18 15:47:48    VIXREG: risk-on — hold TQQQ (VIX 15.2)
+2026-08-18 15:47:48  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-08-18 15:47:49  done.
