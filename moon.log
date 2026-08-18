@@ -832,3 +832,10 @@
 2026-08-17 19:28:53  ONCLOSE: burst on provisional close 730.15 -> FIRED
 2026-08-17 19:28:53  ONCLOSE: BUY 68 UPRO at the close (~$10,541, CLS)
 2026-08-17 19:28:53  ONCLOSE: already submitted today — skipped
+2026-08-18 14:18:14    VRP: VIX data missing/stale — FROZEN
+2026-08-18 14:18:15    BURST: trigger FIRED — deploy
+2026-08-18 14:18:15    VIXREG: risk-on — hold TQQQ (VIX 14.2)
+2026-08-18 14:18:15    FROZEN this run (data outage — positions untouched): ['SVXY']
+2026-08-18 14:18:15  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, UPRO 10.0%
+2026-08-18 14:18:16    BUY UPRO $10,370
+2026-08-18 14:18:16  done.
