@@ -872,3 +872,4 @@
 2026-08-19 15:47:26    VIXREG: risk-on — hold TQQQ (VIX 15.8)
 2026-08-19 15:47:26  moon sleeve targets: TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
 2026-08-19 15:47:27  done.
+2026-08-19 18:48:13  ONCLOSE: outside the 15:00-15:50 ET window (14:48 ET) — skip (morning runs cover it)
