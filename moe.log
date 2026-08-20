@@ -830,3 +830,10 @@
 2026-08-20 14:47:40    SELL GLD $1,356 -> target $4,244
 2026-08-20 14:47:40    SELL XLK $2,707 -> target $18,544
 2026-08-20 14:47:40  done.
+2026-08-20 15:36:21  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-08-20 15:36:22  v12 | regime BULL | VIX 14.9 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.50 [volT 0.50] = gross 1.00
+2026-08-20 15:36:22    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-08-20 15:36:22    TARGET book (8 positions): XLK +29%, BIL +25%, SPY +12%, EFA +9%, DBC +7%, GLD +7%, QQQ +6%, EEM +5%
+2026-08-20 15:36:23    moon sleeve holds $40,267 (ignored); core sizes on $62,855
+2026-08-20 15:36:23  equity $62,855 | current 8 core positions
+2026-08-20 15:36:23  done.
