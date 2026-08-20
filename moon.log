@@ -896,3 +896,5 @@
 2026-08-20 15:49:56  moon sleeve targets: BTC/USD 6.4%, ETH/USD 3.6%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
 2026-08-20 15:49:57  done.
 2026-08-20 18:53:29  ONCLOSE: outside the 15:00-15:50 ET window (14:53 ET) — skip (morning runs cover it)
+2026-08-20 19:06:35  ONCLOSE: burst on provisional close 710.45 -> FIRED
+2026-08-20 19:06:35  ONCLOSE: burst position already on — nothing to do
