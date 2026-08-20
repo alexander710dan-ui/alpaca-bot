@@ -878,3 +878,10 @@
 2026-08-19 19:06:47  ONCLOSE: burst position already on — nothing to do
 2026-08-19 19:26:16  ONCLOSE: burst on provisional close 717.30 -> FIRED
 2026-08-19 19:26:16  ONCLOSE: burst position already on — nothing to do
+2026-08-20 14:22:22    VRP: VIX3M/VIX = 1.247 (contango — sell vol)
+2026-08-20 14:22:23    BURST: trigger FIRED — deploy (VIX 14.9 vs 10d 15.0)
+2026-08-20 14:22:24    VIXREG: risk-on — hold TQQQ (VIX 14.9)
+2026-08-20 14:22:24  moon sleeve targets: BTC/USD 6.4%, ETH/USD 3.6%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-08-20 14:22:25    BUY BTC/USD $6,566
+2026-08-20 14:22:25    BUY ETH/USD $3,747
+2026-08-20 14:22:25  done.
