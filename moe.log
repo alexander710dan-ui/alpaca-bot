@@ -877,3 +877,12 @@
 2026-08-24 14:53:31    BUY XLK $3,083 -> target $22,526
 2026-08-24 14:53:31      XLK: same order already sent today (duplicate protection) — skipped
 2026-08-24 14:53:31  done.
+2026-08-24 15:41:34  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-08-24 15:41:35  v12 | regime BULL | VIX 15.1 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.53 [volT 0.53] = gross 1.05
+2026-08-24 15:41:35    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-08-24 15:41:35    TARGET book (8 positions): XLK +31%, BIL +21%, SPY +12%, EFA +10%, DBC +8%, GLD +7%, QQQ +6%, EEM +5%
+2026-08-24 15:41:36    moon sleeve holds $30,853 (ignored); core sizes on $72,821
+2026-08-24 15:41:36  equity $72,821 | current 8 core positions
+2026-08-24 15:41:36    BUY XLK $3,058 -> target $22,553
+2026-08-24 15:41:36      XLK: same order already sent today (duplicate protection) — skipped
+2026-08-24 15:41:36  done.
