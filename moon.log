@@ -1095,3 +1095,8 @@
 2026-08-31 20:10:50    FROZEN this run (data outage — positions untouched): ['SVXY']
 2026-08-31 20:10:50  moon sleeve targets: BTC/USD 6.1%, ETH/USD 3.9%, TQQQ 14.2%, SOXL 1.8%
 2026-08-31 20:10:51  done.
+2026-08-31 20:51:19    VRP: VIX3M/VIX = 1.211 (contango — sell vol)
+2026-08-31 20:51:19    BURST: trigger quiet — cash (VIX 14.4 vs 10d 15.3)
+2026-08-31 20:51:20    VIXREG: risk-on — hold TQQQ (VIX 14.4)
+2026-08-31 20:51:20  moon sleeve targets: BTC/USD 6.1%, ETH/USD 3.9%, TQQQ 14.2%, SOXL 1.8%, SVXY 4.0%
+2026-08-31 20:51:21  done.
