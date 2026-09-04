@@ -1067,3 +1067,10 @@
 2026-09-04 17:04:34    SELL SPY $15,445 -> target $33,448
 2026-09-04 17:04:34    BUY BIL $5,535 -> target $5,535
 2026-09-04 17:04:34  done.
+2026-09-04 17:33:41  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-09-04 17:33:42  v12 | regime BULL | VIX 14.3 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.62 [volT 0.62] = gross 1.23
+2026-09-04 17:33:42    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-09-04 17:33:42    TARGET book (8 positions): SPY +45%, EFA +13%, DBC +8%, QQQ +8%, BIL +7%, GLD +7%, EEM +6%, XLK +6%
+2026-09-04 17:33:43    moon sleeve holds $31,415 (ignored); core sizes on $73,829
+2026-09-04 17:33:43  equity $73,829 | current 8 core positions
+2026-09-04 17:33:43  done.
