@@ -1239,3 +1239,11 @@
 2026-09-08 17:35:26    FROZEN this run (data outage — positions untouched): ['SOXL', 'TQQQ', 'UPRO']
 2026-09-08 17:35:26  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, SVXY 4.0%
 2026-09-08 17:35:27  done.
+2026-09-08 17:57:07    TQQQ: no fresh data — FROZEN (position untouched)
+2026-09-08 17:57:07    SOXL: no fresh data — FROZEN (position untouched)
+2026-09-08 17:57:07    VRP: VIX3M/VIX = 1.151 (contango — sell vol)
+2026-09-08 17:57:08    BURST: QQQ data missing/stale — FROZEN
+2026-09-08 17:57:08    VIXREG: data missing/stale — FROZEN
+2026-09-08 17:57:08    FROZEN this run (data outage — positions untouched): ['SOXL', 'TQQQ', 'UPRO']
+2026-09-08 17:57:08  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, SVXY 4.0%
+2026-09-08 17:57:09  done.
