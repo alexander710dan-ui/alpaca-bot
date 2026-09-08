@@ -1231,3 +1231,11 @@
 2026-09-07 21:36:23  ONCLOSE: outside the 15:00-15:50 ET window (17:36 ET) — skip (morning runs cover it)
 2026-09-07 21:46:25  ONCLOSE: outside the 15:00-15:50 ET window (17:46 ET) — skip (morning runs cover it)
 2026-09-07 21:55:31  ONCLOSE: outside the 15:00-15:50 ET window (17:55 ET) — skip (morning runs cover it)
+2026-09-08 17:35:15    TQQQ: no fresh data — FROZEN (position untouched)
+2026-09-08 17:35:15    SOXL: no fresh data — FROZEN (position untouched)
+2026-09-08 17:35:20    VRP: VIX3M/VIX = 1.151 (contango — sell vol)
+2026-09-08 17:35:25    BURST: QQQ data missing/stale — FROZEN
+2026-09-08 17:35:26    VIXREG: data missing/stale — FROZEN
+2026-09-08 17:35:26    FROZEN this run (data outage — positions untouched): ['SOXL', 'TQQQ', 'UPRO']
+2026-09-08 17:35:26  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, SVXY 4.0%
+2026-09-08 17:35:27  done.
