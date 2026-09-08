@@ -1096,3 +1096,10 @@
 2026-09-07 19:02:23    expert weights: core=0.25 trend2=0.50 tom=0.25
 2026-09-07 19:02:23    TARGET book (8 positions): SPY +47%, EFA +13%, DBC +9%, QQQ +8%, GLD +7%, EEM +6%, XLK +6%, BIL +5%
 2026-09-07 19:02:24  market closed (next 2026-09-08 09:30:00-04:00); no trades.
+2026-09-08 17:30:06  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-09-08 17:30:06  v12 | regime BULL | VIX 14.5 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.64 [volT 0.64] = gross 1.27
+2026-09-08 17:30:06    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-09-08 17:30:06    TARGET book (8 positions): SPY +47%, EFA +13%, DBC +9%, QQQ +8%, GLD +7%, EEM +6%, XLK +6%, BIL +5%
+2026-09-08 17:30:08    moon sleeve holds $31,560 (ignored); core sizes on $73,822
+2026-09-08 17:30:08  equity $73,822 | current 8 core positions
+2026-09-08 17:30:08  done.
