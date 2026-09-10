@@ -1284,3 +1284,8 @@
 2026-09-10 17:17:49  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
 2026-09-10 17:17:50    BUY UPRO $10,386
 2026-09-10 17:17:50  done.
+2026-09-10 17:44:07    VRP: VIX3M/VIX = 1.146 (contango — sell vol)
+2026-09-10 17:44:08    BURST: trigger FIRED — deploy (VIX 16.5 vs 10d 15.2)
+2026-09-10 17:44:08    VIXREG: risk-on — hold TQQQ (VIX 16.5)
+2026-09-10 17:44:08  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%, UPRO 10.0%
+2026-09-10 17:44:09  done.
