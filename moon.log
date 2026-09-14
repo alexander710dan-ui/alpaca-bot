@@ -1367,3 +1367,8 @@
 2026-09-14 18:54:35    CLOSE UPRO ($10,508)
 2026-09-14 18:54:35    SELL SVXY $4,187
 2026-09-14 18:54:35  done.
+2026-09-14 19:27:51    VRP: VIX3M/VIX = 1.174 (contango — sell vol)
+2026-09-14 19:27:51    BURST: trigger quiet — cash (VIX 15.8 vs 10d 15.6)
+2026-09-14 19:27:51    VIXREG: risk-on — hold TQQQ (VIX 15.8)
+2026-09-14 19:27:51  moon sleeve targets: BTC/USD 6.0%, ETH/USD 4.0%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-09-14 19:27:52  done.
