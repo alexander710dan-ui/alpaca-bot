@@ -1312,3 +1312,10 @@
 2026-09-21 18:54:31    BUY DBC $1,253 -> target $7,257
 2026-09-21 18:54:31    BUY SPY $1,362 -> target $39,440
 2026-09-21 18:54:31  done.
+2026-09-21 19:18:27  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-09-21 19:18:28  v12 | regime BULL | VIX 14.8 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.72 [volT 0.72] = gross 1.44
+2026-09-21 19:18:28    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-09-21 19:18:28    TARGET book (7 positions): SPY +53%, EFA +15%, DBC +10%, QQQ +9%, GLD +8%, EEM +7%, XLK +6%
+2026-09-21 19:18:29    moon sleeve holds $33,928 (ignored); core sizes on $74,792
+2026-09-21 19:18:29  equity $74,792 | current 7 core positions
+2026-09-21 19:18:29  done.
