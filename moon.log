@@ -1592,3 +1592,9 @@
 2026-09-26 17:24:38  moon sleeve targets: BTC/USD 5.8%, ETH/USD 4.2%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
 2026-09-26 17:24:40    skip close UPRO (stock market closed; crypto leg still trades)
 2026-09-26 17:24:40  done.
+2026-09-26 17:47:23    VRP: VIX3M/VIX = 1.206 (contango — sell vol)
+2026-09-26 17:47:23    BURST: trigger quiet — cash (VIX 14.9 vs 10d 15.7)
+2026-09-26 17:47:23    VIXREG: risk-on — hold TQQQ (VIX 14.9)
+2026-09-26 17:47:23  moon sleeve targets: BTC/USD 5.8%, ETH/USD 4.2%, TQQQ 14.3%, SOXL 1.7%, SVXY 4.0%
+2026-09-26 17:47:24    skip close UPRO (stock market closed; crypto leg still trades)
+2026-09-26 17:47:24  done.
