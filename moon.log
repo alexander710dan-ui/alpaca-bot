@@ -1641,3 +1641,4 @@
 2026-09-28 21:15:45    skip close UPRO (stock market closed; crypto leg still trades)
 2026-09-28 21:15:45  done.
 2026-09-28 23:12:04  ONCLOSE: outside the 15:00-15:50 ET window (19:12 ET) — skip (morning runs cover it)
+2026-09-28 23:23:15  ONCLOSE: outside the 15:00-15:50 ET window (19:23 ET) — skip (morning runs cover it)
