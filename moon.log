@@ -1769,3 +1769,4 @@
 2026-10-05 23:59:35  ONCLOSE: outside the 15:00-15:50 ET window (19:59 ET) — skip (morning runs cover it)
 2026-10-06 00:10:11  ONCLOSE: outside the 15:00-15:50 ET window (20:10 ET) — skip (morning runs cover it)
 2026-10-06 00:20:10  ONCLOSE: outside the 15:00-15:50 ET window (20:20 ET) — skip (morning runs cover it)
+2026-10-06 00:37:19  ONCLOSE: outside the 15:00-15:50 ET window (20:37 ET) — skip (morning runs cover it)
