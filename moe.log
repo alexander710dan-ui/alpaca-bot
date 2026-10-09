@@ -1617,3 +1617,8 @@
 2026-10-09 19:27:26    SELL SPY $2,146 -> target $12,501
 2026-10-09 19:27:27    SELL XLK $6,105 -> target $32,372
 2026-10-09 19:27:27  done.
+2026-10-09 20:01:48  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-10-09 20:01:48  v12 | regime BULL | VIX 15.4 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.81 [volT 0.81] = gross 1.63
+2026-10-09 20:01:48    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-10-09 20:01:48    TARGET book (7 positions): XLK +49%, SPY +19%, EFA +16%, QQQ +11%, DBC +10%, EEM +9%, GLD +8%
+2026-10-09 20:01:49  market closed (next 2026-10-12 09:30:00-04:00); no trades.
