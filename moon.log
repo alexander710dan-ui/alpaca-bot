@@ -1901,3 +1901,4 @@
 2026-10-12 22:30:39  moon sleeve targets: BTC/USD 5.8%, ETH/USD 4.2%, TQQQ 14.2%, SOXL 1.8%, SVXY 4.0%
 2026-10-12 22:30:41    skip close UPRO (stock market closed; crypto leg still trades)
 2026-10-12 22:30:41  done.
+2026-10-13 00:32:30  ONCLOSE: outside the 15:00-15:50 ET window (20:32 ET) — skip (morning runs cover it)
