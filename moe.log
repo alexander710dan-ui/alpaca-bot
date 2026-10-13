@@ -1649,3 +1649,8 @@
 2026-10-13 20:11:35    expert weights: core=0.25 trend2=0.50 tom=0.25
 2026-10-13 20:11:35    TARGET book (7 positions): XLK +50%, SPY +19%, EFA +17%, QQQ +11%, DBC +10%, EEM +9%, GLD +9%
 2026-10-13 20:11:36  market closed (next 2026-10-14 09:30:00-04:00); no trades.
+2026-10-13 20:32:49  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-10-13 20:32:49  v12 | regime BULL | VIX 15.2 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.83 [volT 0.83] = gross 1.65
+2026-10-13 20:32:49    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-10-13 20:32:49    TARGET book (7 positions): XLK +50%, SPY +19%, EFA +17%, QQQ +11%, DBC +10%, EEM +9%, GLD +9%
+2026-10-13 20:32:50  market closed (next 2026-10-14 09:30:00-04:00); no trades.
