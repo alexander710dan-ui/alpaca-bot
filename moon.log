@@ -1970,3 +1970,8 @@
 2026-10-16 17:42:34    VIXREG: risk-on — hold TQQQ (VIX 16.5)
 2026-10-16 17:42:34  moon sleeve targets: BTC/USD 5.9%, ETH/USD 4.1%, TQQQ 16.0%, SVXY 4.0%, UPRO 10.0%
 2026-10-16 17:42:35  done.
+2026-10-16 18:08:56    VRP: VIX3M/VIX = 1.123 (contango — sell vol)
+2026-10-16 18:08:57    BURST: trigger FIRED — deploy (VIX 16.5 vs 10d 15.5)
+2026-10-16 18:08:58    VIXREG: risk-on — hold TQQQ (VIX 16.5)
+2026-10-16 18:08:58  moon sleeve targets: BTC/USD 5.9%, ETH/USD 4.1%, TQQQ 16.0%, SVXY 4.0%, UPRO 10.0%
+2026-10-16 18:08:58  done.
