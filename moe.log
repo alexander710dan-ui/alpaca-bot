@@ -1729,3 +1729,10 @@
 2026-10-16 17:57:15    moon sleeve holds $41,505 (ignored); core sizes on $60,896
 2026-10-16 17:57:15  equity $60,896 | current 7 core positions
 2026-10-16 17:57:15  done.
+2026-10-16 18:40:33  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-10-16 18:40:33  v12 | regime BULL | VIX 16.5 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.75 [volT 0.75] = gross 1.49
+2026-10-16 18:40:33    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-10-16 18:40:33    TARGET book (7 positions): XLK +45%, SPY +17%, EFA +15%, QQQ +10%, DBC +9%, EEM +8%, GLD +8%
+2026-10-16 18:40:34    moon sleeve holds $41,320 (ignored); core sizes on $60,799
+2026-10-16 18:40:34  equity $60,799 | current 7 core positions
+2026-10-16 18:40:34  done.
