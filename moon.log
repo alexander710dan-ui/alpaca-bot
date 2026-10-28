@@ -2195,3 +2195,4 @@
 2026-10-28 20:18:13    VIXREG: risk-on — hold TQQQ (VIX 17.5)
 2026-10-28 20:18:13  moon sleeve targets: BTC/USD 5.4%, ETH/USD 4.6%, TQQQ 16.0%, SVXY 4.0%
 2026-10-28 20:18:14  done.
+2026-10-28 22:29:29  ONCLOSE: outside the 15:00-15:50 ET window (18:29 ET) — skip (morning runs cover it)
