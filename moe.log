@@ -1954,3 +1954,8 @@
 2026-10-30 18:52:02    expert weights: core=0.25 trend2=0.50 tom=0.25
 2026-10-30 18:52:02    TARGET book (7 positions): SPY +50%, XLK +41%, EFA +14%, QQQ +9%, DBC +8%, EEM +7%, GLD +7%
 2026-10-30 18:52:03  DAILY LOSS BREAKER: equity $97,036 is down -5.7% vs yesterday (limit 4%). No orders today.
+2026-10-30 19:11:36  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-10-30 19:11:36  v12 | regime BULL | VIX 17.2 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.68 [volT 0.68] = gross 1.36
+2026-10-30 19:11:36    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-10-30 19:11:36    TARGET book (7 positions): SPY +50%, XLK +41%, EFA +14%, QQQ +9%, DBC +8%, EEM +7%, GLD +7%
+2026-10-30 19:11:37  DAILY LOSS BREAKER: equity $97,656 is down -5.1% vs yesterday (limit 4%). No orders today.
