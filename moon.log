@@ -2258,3 +2258,10 @@
 2026-10-31 19:19:28    skip sell TQQQ (stock market closed; crypto leg still trades)
 2026-10-31 19:19:28    skip buy UPRO (stock market closed; crypto leg still trades)
 2026-10-31 19:19:28  done.
+2026-11-01 18:37:11    VRP: VIX3M/VIX = 1.070 (contango — sell vol)
+2026-11-01 18:37:11    BURST: trigger FIRED — deploy (VIX 19.4 vs 10d 18.0)
+2026-11-01 18:37:11    VIXREG: risk-on — hold TQQQ (VIX 19.4)
+2026-11-01 18:37:11  moon sleeve targets: BTC/USD 5.3%, ETH/USD 4.7%, SVXY 4.0%, UPRO 10.0%, TQQQ 10.0%
+2026-11-01 18:37:12    skip sell TQQQ (stock market closed; crypto leg still trades)
+2026-11-01 18:37:12    skip buy UPRO (stock market closed; crypto leg still trades)
+2026-11-01 18:37:12  done.
