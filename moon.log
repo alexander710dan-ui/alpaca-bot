@@ -2372,3 +2372,8 @@
 2026-11-06 20:06:27    CLOSE TQQQ ($8,515)
 2026-11-06 20:06:27    BUY UPRO $9,489
 2026-11-06 20:06:27  done.
+2026-11-06 20:28:14    VRP: VIX3M/VIX = 0.907 (backwardation — CASH)
+2026-11-06 20:28:15    BURST: trigger FIRED — deploy (VIX 28.2 vs 10d 19.6)
+2026-11-06 20:28:15    VIXREG: gate closed — cash (VIX 28.2)
+2026-11-06 20:28:15  moon sleeve targets: BTC/USD 5.5%, ETH/USD 4.5%, UPRO 10.0%
+2026-11-06 20:28:16  done.
