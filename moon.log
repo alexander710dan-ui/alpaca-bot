@@ -2406,3 +2406,8 @@
 2026-11-08 18:31:46    VIXREG: gate closed — cash (VIX 25.6)
 2026-11-08 18:31:46  moon sleeve targets: BTC/USD 5.5%, ETH/USD 4.5%, UPRO 10.0%
 2026-11-08 18:31:47  done.
+2026-11-08 18:52:41    VRP: VIX3M/VIX = 0.959 (backwardation — CASH)
+2026-11-08 18:52:41    BURST: trigger FIRED — deploy (VIX 25.6 vs 10d 20.2)
+2026-11-08 18:52:42    VIXREG: gate closed — cash (VIX 25.6)
+2026-11-08 18:52:42  moon sleeve targets: BTC/USD 5.5%, ETH/USD 4.5%, UPRO 10.0%
+2026-11-08 18:52:43  done.
