@@ -2445,3 +2445,8 @@
 2026-11-10 20:38:00    BUY SVXY $3,810
 2026-11-10 20:38:00    BUY TQQQ $9,526
 2026-11-10 20:38:00  done.
+2026-11-10 20:53:33    VRP: VIX3M/VIX = 1.047 (contango — sell vol)
+2026-11-10 20:53:33    BURST: trigger quiet — cash (VIX 19.9 vs 10d 20.3)
+2026-11-10 20:53:34    VIXREG: risk-on — hold TQQQ (VIX 19.9)
+2026-11-10 20:53:34  moon sleeve targets: BTC/USD 10.0%, SVXY 4.0%, TQQQ 10.0%
+2026-11-10 20:53:34  done.
