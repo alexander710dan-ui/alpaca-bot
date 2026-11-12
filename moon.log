@@ -2473,3 +2473,8 @@
 2026-11-12 00:51:26  ONCLOSE: outside the 15:00-15:50 ET window (19:51 ET) — skip (morning runs cover it)
 2026-11-12 00:59:43  ONCLOSE: outside the 15:00-15:50 ET window (19:59 ET) — skip (morning runs cover it)
 2026-11-12 01:20:11  ONCLOSE: outside the 15:00-15:50 ET window (20:20 ET) — skip (morning runs cover it)
+2026-11-12 21:08:58    VRP: VIX3M/VIX = 1.100 (contango — sell vol)
+2026-11-12 21:08:59    BURST: trigger quiet — cash (VIX 17.5 vs 10d 20.6)
+2026-11-12 21:08:59    VIXREG: risk-on — hold TQQQ (VIX 17.5)
+2026-11-12 21:08:59  moon sleeve targets: BTC/USD 10.0%, SVXY 4.0%, TQQQ 10.0%
+2026-11-12 21:09:00  done.
