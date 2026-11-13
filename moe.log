@@ -2151,3 +2151,8 @@
 2026-11-13 20:51:09    BUY BIL $4,404 -> target $40,769
 2026-11-13 20:51:09    BUY EFA $1,227 -> target $8,694
 2026-11-13 20:51:09  done.
+2026-11-13 21:15:52  data: 23 syms via alpaca, 0 via yahoo fallback
+2026-11-13 21:15:52  v12 | regime BULL | VIX 18.7 | expo 1.00 x vol 1.00 x lev 2 x overlay 0.50 [volT 0.50] = gross 1.00
+2026-11-13 21:15:52    expert weights: core=0.25 trend2=0.50 tom=0.25
+2026-11-13 21:15:52    TARGET book (8 positions): BIL +50%, SPY +11%, EFA +11%, QQQ +6%, DBC +6%, EEM +6%, GLD +5%, XLK +5%
+2026-11-13 21:15:53  market closed (next 2026-11-16 09:30:00-05:00); no trades.
