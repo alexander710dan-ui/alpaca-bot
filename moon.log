@@ -2612,3 +2612,10 @@
 2026-11-19 21:51:58    skip close SVXY (stock market closed; crypto leg still trades)
 2026-11-19 21:51:58    skip close TQQQ (stock market closed; crypto leg still trades)
 2026-11-19 21:51:58  done.
+2026-11-19 22:16:03    VRP: VIX3M/VIX = 0.989 (backwardation — CASH)
+2026-11-19 22:16:04    BURST: trigger quiet — cash (VIX 24.6 vs 10d 22.2)
+2026-11-19 22:16:04    VIXREG: gate closed — cash (VIX 24.6)
+2026-11-19 22:16:04  moon sleeve targets: ALL CASH (nothing trending)
+2026-11-19 22:16:05    skip close SVXY (stock market closed; crypto leg still trades)
+2026-11-19 22:16:05    skip close TQQQ (stock market closed; crypto leg still trades)
+2026-11-19 22:16:05  done.
