@@ -2601,3 +2601,4 @@
 2026-11-18 22:36:38    skip close SVXY (stock market closed; crypto leg still trades)
 2026-11-18 22:36:38    skip close TQQQ (stock market closed; crypto leg still trades)
 2026-11-18 22:36:38  done.
+2026-11-19 00:15:03  ONCLOSE: outside the 15:00-15:50 ET window (19:15 ET) — skip (morning runs cover it)
