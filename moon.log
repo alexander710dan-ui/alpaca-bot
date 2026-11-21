@@ -2658,3 +2658,11 @@
 2026-11-21 00:03:32  ONCLOSE: outside the 15:00-15:50 ET window (19:03 ET) — skip (morning runs cover it)
 2026-11-21 00:15:15  ONCLOSE: outside the 15:00-15:50 ET window (19:15 ET) — skip (morning runs cover it)
 2026-11-21 00:39:15  ONCLOSE: outside the 15:00-15:50 ET window (19:39 ET) — skip (morning runs cover it)
+2026-11-21 20:16:13    VRP: VIX3M/VIX = 0.862 (backwardation — CASH)
+2026-11-21 20:16:14    BURST: trigger FIRED — deploy (VIX 35.9 vs 10d 23.2)
+2026-11-21 20:16:14    VIXREG: gate closed — cash (VIX 35.9)
+2026-11-21 20:16:14  moon sleeve targets: UPRO 10.0%
+2026-11-21 20:16:15    skip close SVXY (stock market closed; crypto leg still trades)
+2026-11-21 20:16:15    skip close TQQQ (stock market closed; crypto leg still trades)
+2026-11-21 20:16:15    skip buy UPRO (stock market closed; crypto leg still trades)
+2026-11-21 20:16:15  done.
