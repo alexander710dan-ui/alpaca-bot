@@ -2666,3 +2666,11 @@
 2026-11-21 20:16:15    skip close TQQQ (stock market closed; crypto leg still trades)
 2026-11-21 20:16:15    skip buy UPRO (stock market closed; crypto leg still trades)
 2026-11-21 20:16:15  done.
+2026-11-21 20:34:56    VRP: VIX3M/VIX = 0.862 (backwardation — CASH)
+2026-11-21 20:34:56    BURST: trigger FIRED — deploy (VIX 35.9 vs 10d 23.2)
+2026-11-21 20:34:57    VIXREG: gate closed — cash (VIX 35.9)
+2026-11-21 20:34:57  moon sleeve targets: UPRO 10.0%
+2026-11-21 20:34:58    skip close SVXY (stock market closed; crypto leg still trades)
+2026-11-21 20:34:58    skip close TQQQ (stock market closed; crypto leg still trades)
+2026-11-21 20:34:58    skip buy UPRO (stock market closed; crypto leg still trades)
+2026-11-21 20:34:58  done.
