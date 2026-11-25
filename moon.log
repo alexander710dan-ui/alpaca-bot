@@ -2756,3 +2756,10 @@
 2026-11-25 02:37:45  ONCLOSE: outside the 15:00-15:50 ET window (21:37 ET) — skip (morning runs cover it)
 2026-11-25 02:46:43  ONCLOSE: outside the 15:00-15:50 ET window (21:46 ET) — skip (morning runs cover it)
 2026-11-25 02:56:49  ONCLOSE: outside the 15:00-15:50 ET window (21:56 ET) — skip (morning runs cover it)
+2026-11-25 22:49:54    VRP: VIX3M/VIX = 0.966 (backwardation — CASH)
+2026-11-25 22:49:54    BURST: trigger quiet — cash (VIX 26.4 vs 10d 24.6)
+2026-11-25 22:49:55    VIXREG: gate closed — cash (VIX 26.4)
+2026-11-25 22:49:55  moon sleeve targets: ALL CASH (nothing trending)
+2026-11-25 22:49:55    skip close SVXY (stock market closed; crypto leg still trades)
+2026-11-25 22:49:55    skip close TQQQ (stock market closed; crypto leg still trades)
+2026-11-25 22:49:55  done.
