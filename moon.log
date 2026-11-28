@@ -2828,3 +2828,4 @@
 2026-11-27 23:29:11    skip close TQQQ (stock market closed; crypto leg still trades)
 2026-11-27 23:29:11  done.
 2026-11-28 01:22:01  ONCLOSE: outside the 15:00-15:50 ET window (20:22 ET) — skip (morning runs cover it)
+2026-11-28 01:31:03  ONCLOSE: outside the 15:00-15:50 ET window (20:31 ET) — skip (morning runs cover it)
